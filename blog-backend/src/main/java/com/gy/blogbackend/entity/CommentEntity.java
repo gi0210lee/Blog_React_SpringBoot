@@ -15,8 +15,8 @@ import java.util.Date;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity(name = "COMMENT")
-@Table(name = "COMMENT")
+@Entity(name = "`comment`")
+@Table(name = "`comment`")
 public class CommentEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,16 +25,15 @@ public class CommentEntity {
     private String userEmail;
     private String content;
     private String userProfileImage;
-    private String userNickname;
-    private String writeDatetime;
+    private Date writeDatetime;
 
     public CommentEntity(PostCommentRequestDto dto, Integer boardNumber, String email) {
         Date now = Date.from(Instant.now());
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String writeDatetime = simpleDateFormat.format(now);
 
-        this.content = dto.getComment();
-        this.writeDatetime = writeDatetime;
+        this.content = dto.getContent();
+        this.writeDatetime = now;
         this.userEmail = email;
         this.boardNumber = boardNumber;
     }

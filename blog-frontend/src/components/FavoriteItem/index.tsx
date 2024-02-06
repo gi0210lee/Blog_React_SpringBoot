@@ -7,7 +7,7 @@ interface Props {
   favoriteItem: IFavoriteItem;
 }
 
-export default function FavortItem({ favoriteItem }: Props) {
+export default function FavoriteItem({ favoriteItem }: Props) {
   const { userEmail, userNickname, userProfileImage } = favoriteItem;
   return (
     <div className="favorite-item">

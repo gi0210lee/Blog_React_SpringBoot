@@ -7,6 +7,7 @@ import com.gy.blogbackend.dto.response.board.*;
 import com.gy.blogbackend.entity.*;
 import com.gy.blogbackend.repository.*;
 import com.gy.blogbackend.repository.resultSet.GetBoardResultSet;
+import com.gy.blogbackend.repository.resultSet.GetCommentListResultSet;
 import com.gy.blogbackend.repository.resultSet.GetFavoriteListResultSet;
 import com.gy.blogbackend.service.BoardService;
 import lombok.RequiredArgsConstructor;
@@ -67,7 +68,7 @@ public class BoardServiceImplement implements BoardService {
             exception.printStackTrace();
             return ResponseDto.databaseError();
         }
-        return null;
+        return PostCommentResponseDto.success();
     }
 
     @Override
@@ -85,6 +86,22 @@ public class BoardServiceImplement implements BoardService {
             return ResponseDto.databaseError();
         }
         return GetFavoriteListResponseDto.success(resultSets);
+    }
+
+    @Override
+    public ResponseEntity<? super GetCommentListResponseDto> getCommentList(Integer boardNumber) {
+        List<GetCommentListResultSet> resultSets = new ArrayList<>();
+        try {
+            boolean existedBoard = boardRepository.existsByBoardNumber(boardNumber);
+            if (!existedBoard) return GetCommentListResponseDto.notExistBoard();
+
+            resultSets = commentRepository.getCommentList(boardNumber);
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            return ResponseDto.databaseError();
+        }
+
+        return GetCommentListResponseDto.success(resultSets);
     }
 
     @Override
