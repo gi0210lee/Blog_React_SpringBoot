@@ -93,12 +93,19 @@
   background-image: url(assets/image/more_vert_fill.svg);
 }
 
-.favorite-icon {
-  background-image: url(assets/image/favorite.svg);
+.favorite-fill-icon {
+  background-image: url(assets/image/favorite-fill.svg);
+}
+.favorite-light-icon {
+  background-image: url(assets/image/favorite-light.svg);
 }
 
 .up-light-icon {
   background-image: url(assets/image/expand_less.svg);
+}
+
+.down-light-icon {
+  background-image: url(assets/image/expand_more.svg);
 }
 
 .comment-icon {
