@@ -4,7 +4,11 @@ import {
   commentListMock,
   favoriteListMock,
 } from "mocks";
-import { IBoardItem, ICommentItem, IFavoriteItem } from "types/interface";
+import {
+  IBoardListItem,
+  ICommentListItem,
+  IFavoriteListItem,
+} from "types/interface";
 import BoardItem from "components/BoardItem";
 import Top3Item from "components/Top3Item";
 import CommentItem from "components/CommentItem";
@@ -35,7 +39,7 @@ export default function BoardMain() {
           rowGap: "20px",
         }}
       >
-        {favoriteListMock.map((favoriteItem: IFavoriteItem) => (
+        {favoriteListMock.map((favoriteItem: IFavoriteListItem) => (
           <FavortItem favoriteItem={favoriteItem} />
         ))}
       </div>
@@ -47,7 +51,7 @@ export default function BoardMain() {
           gap: "30px",
         }}
       >
-        {commentListMock.map((commentItem: ICommentItem) => (
+        {commentListMock.map((commentItem: ICommentListItem) => (
           <CommentItem commentItem={commentItem} />
         ))}
       </div>
@@ -56,11 +60,11 @@ export default function BoardMain() {
         className=""
         style={{ display: "flex", justifyContent: "center", gap: "24px" }}
       >
-        {top3BoardListMock?.map((boardItem: IBoardItem) => (
+        {top3BoardListMock?.map((boardItem: IBoardListItem) => (
           <Top3Item top3Item={boardItem} />
         ))}
       </div>
-      {latestBoardListMock?.map((boardItem: IBoardItem) => (
+      {latestBoardListMock?.map((boardItem: IBoardListItem) => (
         <BoardItem boardItem={boardItem} />
       ))}
     </>

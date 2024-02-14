@@ -1,6 +1,6 @@
-import { IBoardItem } from "types/interface";
+import { IBoardListItem } from "types/interface";
 
-const top3BoardListMock: IBoardItem[] = [
+const top3BoardListMock: IBoardListItem[] = [
   {
     boardNumber: 1,
     boardTitle: "오늘 뭐먹지",

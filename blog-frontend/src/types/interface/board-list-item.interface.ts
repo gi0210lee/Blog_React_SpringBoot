@@ -1,4 +1,4 @@
-interface IBoardItem {
+interface IBoardListItem {
   boardNumber: number;
   boardTitle: string;
   boardContent: string;
@@ -11,4 +11,4 @@ interface IBoardItem {
   boardCommentCount: number;
 }
 
-export default IBoardItem;
+export default IBoardListItem;

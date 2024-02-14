@@ -1,9 +1,9 @@
 import React from "react";
 import "./style.css";
-import { ICommentItem } from "types/interface";
+import { ICommentListItem } from "types/interface";
 
 interface Props {
-  commentItem: ICommentItem;
+  commentItem: ICommentListItem;
 }
 
 export default function CommentItem({ commentItem }: Props) {

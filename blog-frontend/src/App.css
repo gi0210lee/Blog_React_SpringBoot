@@ -3,6 +3,10 @@
   border-top: 1px solid rgba(0, 0, 0, 0.2);
 }
 
+.emphasis {
+  font-weight: bolder;
+}
+
 .icon-box {
   width: 24px;
   height: 24px;
@@ -83,6 +87,22 @@
 
 .cancel-icon {
   background-image: url(assets/image/cancel.svg);
+}
+
+.more-icon {
+  background-image: url(assets/image/more_vert_fill.svg);
+}
+
+.favorite-icon {
+  background-image: url(assets/image/favorite.svg);
+}
+
+.up-light-icon {
+  background-image: url(assets/image/expand_less.svg);
+}
+
+.comment-icon {
+  background-image: url(assets/image/chat.svg);
 }
 
 .black-button {

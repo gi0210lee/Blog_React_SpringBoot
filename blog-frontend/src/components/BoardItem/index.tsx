@@ -1,11 +1,11 @@
 import React from "react";
 import "./style.css";
-import DefaultProfileImage from "assets/image/default-profile-image.png";
+import defaultProfileImage from "assets/image/default-profile-image.png";
 
-import { IBoardItem } from "types/interface";
+import { IBoardListItem } from "types/interface";
 import { useNavigate } from "react-router-dom";
 interface Props {
-  boardItem: IBoardItem;
+  boardItem: IBoardListItem;
 }
 
 export default function BoardItem({ boardItem }: Props) {
@@ -39,7 +39,7 @@ export default function BoardItem({ boardItem }: Props) {
                 background: `url(${
                   boardWriterProfileImage
                     ? boardWriterProfileImage
-                    : DefaultProfileImage
+                    : defaultProfileImage
                 }})`,
               }}
             ></div>

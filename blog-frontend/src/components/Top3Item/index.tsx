@@ -1,11 +1,11 @@
 import React from "react";
 import "./style.css";
 import defaultProfileImage from "assets/image/default-profile-image.png";
-import { IBoardItem } from "types/interface";
+import { IBoardListItem } from "types/interface";
 import { useNavigate } from "react-router-dom";
 
 interface Props {
-  top3Item: IBoardItem;
+  top3Item: IBoardListItem;
 }
 
 export default function Top3Item({ top3Item }: Props) {

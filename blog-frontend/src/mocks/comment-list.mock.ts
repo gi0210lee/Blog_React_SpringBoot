@@ -1,6 +1,6 @@
-import { ICommentItem } from "types/interface";
+import { ICommentListItem } from "types/interface";
 
-const commentListMock: ICommentItem[] = [
+const commentListMock: ICommentListItem[] = [
   {
     commentUserProfileImage: "https://picsum.photos/id/1/50",
     commentUserNickname: "유저닉네임1",

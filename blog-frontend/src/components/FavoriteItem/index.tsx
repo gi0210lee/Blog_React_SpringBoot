@@ -1,10 +1,10 @@
 import React from "react";
 import "./style.css";
-import { IFavoriteItem } from "types/interface";
+import { IFavoriteListItem } from "types/interface";
 import defaultProfileImage from "assets/image/default-profile-image.png";
 
 interface Props {
-  favoriteItem: IFavoriteItem;
+  favoriteItem: IFavoriteListItem;
 }
 
 export default function FavoriteItem({ favoriteItem }: Props) {

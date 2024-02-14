@@ -1,6 +1,13 @@
-import IBoardItem from "./board-item.interface";
-import IFavoriteItem from "./favorite-item.interface";
-import ICommentItem from "./comment-item.interface";
+import IBoard from "./board.interface";
+import IBoardListItem from "./board-list-item.interface";
+import IFavoriteListItem from "./favorite-list-item.interface";
+import ICommentListItem from "./comment-list-item.interface";
 import IUser from "./user.interface";
 
-export type { IBoardItem, IFavoriteItem, ICommentItem, IUser };
+export type {
+  IBoard,
+  IBoardListItem,
+  IFavoriteListItem,
+  ICommentListItem,
+  IUser,
+};
