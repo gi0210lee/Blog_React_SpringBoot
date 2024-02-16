@@ -1,21 +1,24 @@
-import React, {
-  ChangeEvent,
-  ChangeEventHandler,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
+import React, { ChangeEvent, useEffect, useRef, useState } from "react";
 import "./style.css";
 import FavoriteItem from "components/FavoriteItem";
-import { IBoard, ICommentListItem, IFavoriteListItem } from "types/interface";
-import { commentListMock, favoriteListMock } from "mocks";
+import {
+  IBoard,
+  ICommentListItem,
+  IFavoriteListItem,
+  IUser,
+} from "types/interface";
 import CommentItem from "components/CommentItem";
 import Pagination from "components/Pagination";
 import defaultProfileImage from "assets/image/default-profile-image.png";
 import { useLoginUserStore } from "stores";
 import { useNavigate, useParams } from "react-router-dom";
 import { BOARD_PATH, BOARD_UPDATE_PATH, MAIN_PATH, USER_PATH } from "constant";
-import boardMock from "mocks/board.bock";
+import { ResponseDto } from "apis/response";
+import {
+  GetBoardResponseDto,
+  IncreaseViewCountResponseDto,
+} from "apis/response/board";
+import { getBoardRequest, increaseViewCountRequest } from "apis";
 
 export default function BoardDetail() {
   const { boardNumber } = useParams();
@@ -24,9 +27,12 @@ export default function BoardDetail() {
 
   // 게시물 상단
   const BoardDetailTop = () => {
+    // 상태
+    const [isWriter, setIsWriter] = useState<boolean>(false);
     const [board, setBoard] = useState<IBoard | null>(null);
     const [showMore, setShowMore] = useState<boolean>(false);
 
+    // 이벤트
     const onMoreButtonClickHandler = () => {
       setShowMore(!showMore);
     };
@@ -51,8 +57,39 @@ export default function BoardDetail() {
       navigate(MAIN_PATH());
     };
 
+    // 쿼리 응답
+    const getBoardResponse = (
+      responseBody: GetBoardResponseDto | ResponseDto | null
+    ) => {
+      if (!responseBody) return;
+
+      const { code } = responseBody;
+      if (code === "NB") alert("존재하지 않는 게시물입니다.");
+      if (code === "DBE") alert("데이터베이스 오류 입니다.");
+      if (code !== "SU") {
+        navigate(MAIN_PATH());
+        return;
+      }
+
+      const board: IBoard = { ...(responseBody as GetBoardResponseDto) };
+      setBoard(board);
+
+      if (!loginUser) {
+        setIsWriter(false);
+        return;
+      }
+      const MatchWriter = loginUser.email === board.writerEmail;
+      setIsWriter(MatchWriter);
+    };
+
+    // 이펙트
     useEffect(() => {
-      setBoard(boardMock);
+      if (!boardNumber) {
+        navigate(MAIN_PATH());
+        return;
+      }
+
+      getBoardRequest(boardNumber).then(getBoardResponse);
     }, [boardNumber]);
 
     if (!board) return <></>;
@@ -84,9 +121,11 @@ export default function BoardDetail() {
                 {board.writeDatetime}
               </div>
             </div>
-            <div className="icon-button" onClick={onMoreButtonClickHandler}>
-              <div className="icon more-icon"></div>
-            </div>
+            {isWriter && (
+              <div className="icon-button" onClick={onMoreButtonClickHandler}>
+                <div className="icon more-icon"></div>
+              </div>
+            )}
             {showMore && (
               <div className="board-detail-more-box">
                 <div
@@ -109,8 +148,13 @@ export default function BoardDetail() {
         <div className="divider"></div>
         <div className="board-detail-top-main">
           <div className="board-detail-main-text">{board.content}</div>
-          {board.boardImageList.map((image) => (
-            <img className="board-detail-main-image" src={image} />
+          {board.boardImageList.map((image, index) => (
+            <img
+              key={index}
+              className="board-detail-main-image"
+              src={image}
+              alt=""
+            />
           ))}
         </div>
       </div>
@@ -119,6 +163,7 @@ export default function BoardDetail() {
 
   // 게시물 하단
   const BoardDetailBottom = () => {
+    // 상태
     const commentRef = useRef<HTMLTextAreaElement | null>(null);
     const [favoriteList, setFavoriteList] = useState<IFavoriteListItem[]>([]);
     const [commentList, setCommentList] = useState<ICommentListItem[]>([]);
@@ -127,6 +172,7 @@ export default function BoardDetail() {
     const [showComment, setShowComment] = useState<boolean>(false);
     const [comment, setComment] = useState<string>("");
 
+    // 이벤트
     const onFavoriteClickHandler = () => {
       setFavorite(!isFavorite);
     };
@@ -155,9 +201,28 @@ export default function BoardDetail() {
       alert("!");
     };
 
+    // 쿼리 응답
+    const increaseViewCountResponse = (
+      responseBody: IncreaseViewCountResponseDto | ResponseDto | null
+    ) => {
+      if (!responseBody) return;
+      const { code } = responseBody;
+      if (code === "NB") alert("존재하지 않는 게시물입니다.");
+      if (code === "DBE") alert("데이터베이스 오류입니다.");
+    };
+
+    // 이펙트
+    let effectFlag = true;
     useEffect(() => {
-      setFavoriteList(favoriteListMock);
-      setCommentList(commentListMock);
+      if (!boardNumber) return;
+      if (effectFlag) {
+        effectFlag = false;
+        return;
+      }
+
+      increaseViewCountRequest(boardNumber).then(increaseViewCountResponse);
+      // setFavoriteList(favoriteListMock);
+      // setCommentList(commentListMock);
     }, [boardNumber]);
 
     return (
@@ -224,25 +289,27 @@ export default function BoardDetail() {
             <div className="board-detail-bottom-comment-pagination-box">
               <Pagination />
             </div>
-            <div className="board-detail-bottom-comment-input-box">
-              <div className="board-detail-bottom-comment-input-container">
-                <textarea
-                  ref={commentRef}
-                  className="board-detail-bottom-comment-textarea"
-                  placeholder="댓글을 작성해주세요"
-                  onChange={onCommentChangeHandler}
-                  value={comment}
-                />
-                <div className="board-detail-bottom-comment-button-box">
-                  <div
-                    className={
-                      comment === "" ? "disable-button" : "black-button"
-                    }
-                    onClick={onCommentSubmitButtonClickHandler}
-                  >{`댓글 달기`}</div>
+            {loginUser !== null && (
+              <div className="board-detail-bottom-comment-input-box">
+                <div className="board-detail-bottom-comment-input-container">
+                  <textarea
+                    ref={commentRef}
+                    className="board-detail-bottom-comment-textarea"
+                    placeholder="댓글을 작성해주세요"
+                    onChange={onCommentChangeHandler}
+                    value={comment}
+                  />
+                  <div className="board-detail-bottom-comment-button-box">
+                    <div
+                      className={
+                        comment === "" ? "disable-button" : "black-button"
+                      }
+                      onClick={onCommentSubmitButtonClickHandler}
+                    >{`댓글 달기`}</div>
+                  </div>
                 </div>
               </div>
-            </div>
+            )}
           </div>
         )}
       </div>

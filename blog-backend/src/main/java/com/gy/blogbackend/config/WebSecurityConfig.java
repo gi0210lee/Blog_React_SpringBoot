@@ -40,8 +40,9 @@ public class WebSecurityConfig {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 // '/', '/api/auth' 모듈에 대해서는 모두 허용
                 .authorizeRequests()
-                .requestMatchers("/", "/api/v1/auth/**", "/api/v1/search/**").permitAll()
-                .requestMatchers(HttpMethod.GET, "/api/v1/board/**", "/api/v1/user/*", "/file/*").permitAll()
+                .requestMatchers("/", "/api/v1/auth/**", "/api/v1/search/**", "/file/**").permitAll()
+                .requestMatchers(HttpMethod.GET, "/api/v1/board/**", "/api/v1/user/*").permitAll()
+//                .requestMatchers(HttpMethod.PATCH, "/api/v1/board/**").permitAll()
                 // 나머지 request 에 대해서는 모두 인증된 사용자만 사용 가능
                 .anyRequest().authenticated().and()
                 .exceptionHandling().authenticationEntryPoint(new FailedAuthenticationEntryPoint());
