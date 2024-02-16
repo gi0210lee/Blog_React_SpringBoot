@@ -6,6 +6,8 @@ import { GetSignInUserResponseDto } from "./response/user";
 import { PostBoardRequestDto } from "./request/board";
 import {
   GetBoardResponseDto,
+  GetCommentListResponseDto,
+  GetFavoriteListResponseDto,
   IncreaseViewCountResponseDto,
   PostBoardResponseDto,
 } from "./response/board";
@@ -62,6 +64,10 @@ const GET_BOARD_URL = (boardNumber: number | string) =>
   `${API_DOMAIN}/board/${boardNumber}`;
 const INCREASE_VIEW_COUNT_URL = (boardNumber: number | string) =>
   `${API_DOMAIN}/board/${boardNumber}/increase-view-count`;
+const GET_FAVORITE_LIST_URL = (boardNumber: number | string) =>
+  `${API_DOMAIN}/board/${boardNumber}/favorite-list`;
+const GET_COMMENT_LIST_URL = (boardNumber: number | string) =>
+  `${API_DOMAIN}/board/${boardNumber}/comment-list`;
 const POST_BOARD_URL = () => `${API_DOMAIN}/board`;
 
 export const getBoardRequest = async (boardNumber: number | string) => {
@@ -95,6 +101,35 @@ export const increaseViewCountRequest = async (
       return responseBody;
     });
 
+  return result;
+};
+
+export const getFavoriteListRequest = async (boardNumber: number | string) => {
+  const result = await axios
+    .get(GET_FAVORITE_LIST_URL(boardNumber))
+    .then((response) => {
+      const responseBody: GetFavoriteListResponseDto = response.data;
+      return responseBody;
+    })
+    .catch((error) => {
+      if (!error.response) return null;
+      const responseBody: ResponseDto = error.response.data;
+      return responseBody;
+    });
+  return result;
+};
+export const getCommentListRequest = async (boardNumber: number | string) => {
+  const result = await axios
+    .get(GET_COMMENT_LIST_URL(boardNumber))
+    .then((response) => {
+      const responseBody: GetCommentListResponseDto = response.data;
+      return responseBody;
+    })
+    .catch((error) => {
+      if (!error.response) return null;
+      const responseBody: ResponseDto = error.response.data;
+      return responseBody;
+    });
   return result;
 };
 

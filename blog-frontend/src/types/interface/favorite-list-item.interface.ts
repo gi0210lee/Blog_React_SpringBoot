@@ -1,7 +1,7 @@
 interface IFavoriteListItem {
-  userEmail: string;
-  userNickname: string;
-  userProfileImage: string | null;
+  email: string;
+  nickname: string;
+  profileImage: string | null;
 }
 
 export default IFavoriteListItem;

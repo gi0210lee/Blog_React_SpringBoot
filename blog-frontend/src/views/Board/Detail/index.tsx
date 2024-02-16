@@ -16,9 +16,17 @@ import { BOARD_PATH, BOARD_UPDATE_PATH, MAIN_PATH, USER_PATH } from "constant";
 import { ResponseDto } from "apis/response";
 import {
   GetBoardResponseDto,
+  GetFavoriteListResponseDto,
   IncreaseViewCountResponseDto,
+  GetCommentListResponseDto,
 } from "apis/response/board";
-import { getBoardRequest, increaseViewCountRequest } from "apis";
+import {
+  getBoardRequest,
+  getCommentListRequest,
+  getFavoriteListRequest,
+  increaseViewCountRequest,
+} from "apis";
+import dayjs from "dayjs";
 
 export default function BoardDetail() {
   const { boardNumber } = useParams();
@@ -31,6 +39,13 @@ export default function BoardDetail() {
     const [isWriter, setIsWriter] = useState<boolean>(false);
     const [board, setBoard] = useState<IBoard | null>(null);
     const [showMore, setShowMore] = useState<boolean>(false);
+
+    // 함수
+    const getWriteDatetimeFormat = () => {
+      if (!board) return;
+      const date = dayjs(board.writeDatetime);
+      return date.format("YYYY. MM. DD.");
+    };
 
     // 이벤트
     const onMoreButtonClickHandler = () => {
@@ -78,8 +93,8 @@ export default function BoardDetail() {
         setIsWriter(false);
         return;
       }
-      const MatchWriter = loginUser.email === board.writerEmail;
-      setIsWriter(MatchWriter);
+      const existWriter = loginUser.email === board.writerEmail;
+      setIsWriter(existWriter);
     };
 
     // 이펙트
@@ -118,7 +133,7 @@ export default function BoardDetail() {
               </div>
               <div className="board-detail-info-divider">{`|`}</div>
               <div className="board-detail-write-date">
-                {board.writeDatetime}
+                {getWriteDatetimeFormat()}
               </div>
             </div>
             {isWriter && (
@@ -167,14 +182,14 @@ export default function BoardDetail() {
     const commentRef = useRef<HTMLTextAreaElement | null>(null);
     const [favoriteList, setFavoriteList] = useState<IFavoriteListItem[]>([]);
     const [commentList, setCommentList] = useState<ICommentListItem[]>([]);
-    const [isFavorite, setFavorite] = useState<boolean>(false);
+    const [isFavorite, setIsFavorite] = useState<boolean>(false);
     const [showFavorite, setShowFavorite] = useState<boolean>(false);
     const [showComment, setShowComment] = useState<boolean>(false);
     const [comment, setComment] = useState<string>("");
 
     // 이벤트
     const onFavoriteClickHandler = () => {
-      setFavorite(!isFavorite);
+      setIsFavorite(!isFavorite);
     };
 
     const onShowFavoriteClickHandler = () => {
@@ -202,25 +217,50 @@ export default function BoardDetail() {
     };
 
     // 쿼리 응답
-    const increaseViewCountResponse = (
-      responseBody: IncreaseViewCountResponseDto | ResponseDto | null
+    const getFavoriteListResponse = (
+      responseBody: GetFavoriteListResponseDto | ResponseDto | null
     ) => {
       if (!responseBody) return;
       const { code } = responseBody;
       if (code === "NB") alert("존재하지 않는 게시물입니다.");
       if (code === "DBE") alert("데이터베이스 오류입니다.");
-    };
+      if (code !== "SU") return;
 
-    // 이펙트
-    let effectFlag = true;
-    useEffect(() => {
-      if (!boardNumber) return;
-      if (effectFlag) {
-        effectFlag = false;
+      const { favoriteList } = responseBody as GetFavoriteListResponseDto;
+      setFavoriteList(favoriteList);
+
+      if (!loginUser) {
+        setIsFavorite(false);
         return;
       }
 
-      increaseViewCountRequest(boardNumber).then(increaseViewCountResponse);
+      const existFavorite =
+        favoriteList.findIndex(
+          (favorite) => favorite.email === loginUser.email
+        ) !== -1;
+
+      setIsFavorite(existFavorite);
+    };
+
+    const getCommentListResponse = (
+      responseBody: GetCommentListResponseDto | ResponseDto | null
+    ) => {
+      if (!responseBody) return;
+      const { code } = responseBody;
+      if (code === "NB") alert("존재하지 않는 게시물입니다.");
+      if (code === "DBE") alert("데이터베이스 오류입니다.");
+      if (code !== "SU") return;
+
+      const { commentList } = responseBody as GetCommentListResponseDto;
+      setCommentList(commentList);
+    };
+
+    // 이펙트
+    useEffect(() => {
+      if (!boardNumber) return;
+
+      getFavoriteListRequest(boardNumber).then(getFavoriteListResponse);
+      getCommentListRequest(boardNumber).then(getCommentListResponse);
       // setFavoriteList(favoriteListMock);
       // setCommentList(commentListMock);
     }, [boardNumber]);
@@ -315,6 +355,27 @@ export default function BoardDetail() {
       </div>
     );
   };
+
+  // 쿼리 응답
+  const increaseViewCountResponse = (
+    responseBody: IncreaseViewCountResponseDto | ResponseDto | null
+  ) => {
+    if (!responseBody) return;
+    const { code } = responseBody;
+    if (code === "NB") alert("존재하지 않는 게시물입니다.");
+    if (code === "DBE") alert("데이터베이스 오류입니다.");
+  };
+
+  // 이펙트
+  let effectFlag = true;
+  useEffect(() => {
+    if (!boardNumber) return;
+    if (effectFlag) {
+      effectFlag = false;
+      return;
+    }
+    increaseViewCountRequest(boardNumber).then(increaseViewCountResponse);
+  }, [boardNumber]);
 
   return (
     <div id="board-detail-wrapper">

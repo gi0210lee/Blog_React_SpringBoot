@@ -8,7 +8,7 @@ interface Props {
 }
 
 export default function FavoriteItem({ favoriteItem }: Props) {
-  const { userEmail, userNickname, userProfileImage } = favoriteItem;
+  const { email, nickname, profileImage } = favoriteItem;
   return (
     <div className="favorite-item">
       <div className="favorite-item-profile-box">
@@ -16,12 +16,12 @@ export default function FavoriteItem({ favoriteItem }: Props) {
           className="favorite-item-profile-image"
           style={{
             backgroundImage: `url(${
-              userProfileImage ? userProfileImage : defaultProfileImage
+              profileImage ? profileImage : defaultProfileImage
             })`,
           }}
         ></div>
       </div>
-      <div className="favorite-item-nickname">{userNickname}</div>
+      <div className="favorite-item-nickname">{nickname}</div>
     </div>
   );
 }
