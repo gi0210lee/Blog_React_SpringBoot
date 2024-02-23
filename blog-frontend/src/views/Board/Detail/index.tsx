@@ -19,18 +19,28 @@ import {
   GetFavoriteListResponseDto,
   IncreaseViewCountResponseDto,
   GetCommentListResponseDto,
+  PutfavoriteResponseDto,
+  PostCommentResponseDto,
+  DeleteBoardResponseDto,
 } from "apis/response/board";
 import {
+  deleteBoardRequest,
   getBoardRequest,
   getCommentListRequest,
   getFavoriteListRequest,
   increaseViewCountRequest,
+  postCommentRequest,
+  putFavoriteRequest,
 } from "apis";
 import dayjs from "dayjs";
+import { useCookies } from "react-cookie";
+import { PostCommentRequestDto } from "apis/request/board";
 
 export default function BoardDetail() {
   const { boardNumber } = useParams();
   const { loginUser } = useLoginUserStore();
+  const [cookies, setCookies] = useCookies();
+
   const navigate = useNavigate();
 
   // 게시물 상단
@@ -66,13 +76,31 @@ export default function BoardDetail() {
     };
 
     const onDeleteButtonClickHandler = () => {
-      if (!board || !loginUser) return;
+      if (!board || !boardNumber || !loginUser || !cookies.accessToken) return;
       if (loginUser.email !== board.writerEmail) return;
 
-      navigate(MAIN_PATH());
+      deleteBoardRequest(boardNumber, cookies.accessToken).then(
+        deleteBoardResponse
+      );
     };
 
     // 쿼리 응답
+    const deleteBoardResponse = (
+      responseBody: DeleteBoardResponseDto | ResponseDto | null
+    ) => {
+      if (!responseBody) return;
+
+      const { code } = responseBody;
+      if (code === "VF") alert("잘못된 접근입니다");
+      if (code === "NU") alert("존재하지 않는 유저입니다.");
+      if (code === "NB") alert("존재하지 않는 게시물입니다.");
+      if (code === "AF") alert("인증에 실패했습니다.");
+      if (code === "NP") alert("권한이 없습니다.");
+      if (code === "DBE") alert("데이터베이스 오류입니다.");
+      if (code !== "SU") return;
+
+      navigate(MAIN_PATH());
+    };
     const getBoardResponse = (
       responseBody: GetBoardResponseDto | ResponseDto | null
     ) => {
@@ -189,7 +217,11 @@ export default function BoardDetail() {
 
     // 이벤트
     const onFavoriteClickHandler = () => {
-      setIsFavorite(!isFavorite);
+      if (!boardNumber || !loginUser || !cookies.accessToken) return;
+
+      putFavoriteRequest(boardNumber, cookies.accessToken).then(
+        putFavoriteResponse
+      );
     };
 
     const onShowFavoriteClickHandler = () => {
@@ -212,11 +244,51 @@ export default function BoardDetail() {
     };
 
     const onCommentSubmitButtonClickHandler = () => {
-      if (!comment) return;
-      alert("!");
+      if (!comment || !boardNumber || !loginUser || !cookies.accessToken)
+        return;
+
+      const requestBody: PostCommentRequestDto = { content: comment };
+      postCommentRequest(boardNumber, requestBody, cookies.accessToken).then(
+        postCommentResponse
+      );
     };
 
     // 쿼리 응답
+    const postCommentResponse = (
+      responseBody: PostCommentResponseDto | ResponseDto | null
+    ) => {
+      if (!responseBody) return;
+      const { code } = responseBody;
+
+      if (code === "VF") alert("잘못된 접근입니다");
+      if (code === "NU") alert("존재하지 않는 유저입니다.");
+      if (code === "NB") alert("존재하지 않는 게시물입니다.");
+      if (code === "AF") alert("인증에 실패했습니다.");
+      if (code === "DBE") alert("데이터베이스 오류입니다.");
+      if (code !== "SU") return;
+
+      setComment("");
+
+      if (!boardNumber) return;
+      getCommentListRequest(boardNumber).then(getCommentListResponse);
+    };
+
+    const putFavoriteResponse = (
+      responseBody: PutfavoriteResponseDto | ResponseDto | null
+    ) => {
+      if (!responseBody) return;
+      const { code } = responseBody;
+      if (code === "VF") alert("잘못된 접근입니다");
+      if (code === "NU") alert("존재하지 않는 유저입니다.");
+      if (code === "NB") alert("존재하지 않는 게시물입니다.");
+      if (code === "AF") alert("인증에 실패했습니다.");
+      if (code === "DBE") alert("데이터베이스 오류입니다.");
+      if (code !== "SU") return;
+
+      if (!boardNumber) return;
+      getFavoriteListRequest(boardNumber).then(getFavoriteListResponse);
+    };
+
     const getFavoriteListResponse = (
       responseBody: GetFavoriteListResponseDto | ResponseDto | null
     ) => {

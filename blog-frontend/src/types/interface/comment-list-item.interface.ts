@@ -1,8 +1,8 @@
 interface ICommentListItem {
-  commentUserProfileImage: string | null;
-  commentUserNickname: string;
-  commentWriteDate: Date;
-  commentContent: string;
+  profileImage: string | null;
+  nickname: string;
+  writeDatetime: Date;
+  content: string;
 }
 
 export default ICommentListItem;

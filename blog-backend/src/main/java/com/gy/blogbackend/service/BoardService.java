@@ -1,6 +1,5 @@
 package com.gy.blogbackend.service;
 
-import com.gy.blogbackend.dto.PatchUserResponseDto;
 import com.gy.blogbackend.dto.request.board.PostBoardRequestDto;
 import com.gy.blogbackend.dto.request.board.PostCommentRequestDto;
 import com.gy.blogbackend.dto.response.board.*;
@@ -22,4 +21,6 @@ public interface BoardService {
     ResponseEntity<? super PutFavoriteResponseDto> putFavorite(Integer boardNumber, String email);
 
     ResponseEntity<? super IncreaseViewCountResponseDto> increaseViewCount(Integer boardNumber);
+
+    ResponseEntity<? super DeleteBoardResponseDto> deleteBoard(Integer boardNumber, String email);
 }

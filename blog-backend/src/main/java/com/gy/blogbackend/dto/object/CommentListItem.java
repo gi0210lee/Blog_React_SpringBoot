@@ -14,7 +14,7 @@ import java.util.List;
 public class CommentListItem {
     private String nickname;
     private String profileImage;
-    private String writeDatetime;
+    private Date writeDatetime;
     private String content;
 
     public CommentListItem(GetCommentListResultSet resultSet) {

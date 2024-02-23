@@ -11,6 +11,7 @@ import com.gy.blogbackend.repository.resultSet.GetCommentListResultSet;
 import com.gy.blogbackend.repository.resultSet.GetFavoriteListResultSet;
 import com.gy.blogbackend.service.BoardService;
 import lombok.RequiredArgsConstructor;
+import org.apache.catalina.User;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -175,5 +176,30 @@ public class BoardServiceImplement implements BoardService {
             return ResponseDto.databaseError();
         }
         return IncreaseViewCountResponseDto.success();
+    }
+
+    @Override
+    public ResponseEntity<? super DeleteBoardResponseDto> deleteBoard(Integer boardNumber, String email) {
+        try {
+            UserEntity userEntity = userRepository.findByEmail(email);
+            if (userEntity == null) return DeleteBoardResponseDto.notExistUser();
+
+            BoardEntity boardEntity = boardRepository.findByBoardNumber(boardNumber);
+            if (boardEntity == null) return DeleteBoardResponseDto.notExistBoard();
+
+            String writerEmail = boardEntity.getWriterEmail();
+            boolean isWriter = writerEmail.equals(email);
+            if (!isWriter) return DeleteBoardResponseDto.noPermission();
+
+            imageRepository.deleteByBoardNumber(boardNumber);
+            commentRepository.deleteByBoardNumber(boardNumber);
+            favoriteRepository.deleteByBoardNumber(boardNumber);
+
+            boardRepository.delete(boardEntity);
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            return ResponseDto.databaseError();
+        }
+        return DeleteBoardResponseDto.success();
     }
 }

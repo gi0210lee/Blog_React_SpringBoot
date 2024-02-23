@@ -1,11 +1,13 @@
 package com.gy.blogbackend.repository.resultSet;
 
+import java.util.Date;
+
 public interface GetCommentListResultSet {
     String getNickname();
 
     String getProfileImage();
 
-    String getWriteDatetime();
+    Date getWriteDatetime();
 
     String getContent();
 }

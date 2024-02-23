@@ -61,9 +61,9 @@ function App() {
    * 로그인 회원가입 /auth
    * 검색화면 /search/:searchWord
    * 유저 페이지 /user/:userEmail
-   * 게시물 상세보기 /board/detail/:boardNumber
+   * 게시물 상세보기 /board/:boardNumber
    * 게시물 작성하기 /board/write
-   * 게시물 수정하기 /board/update/:boardNumber
+   * 게시물 수정하기 /board/:boardNumber/update
    */
   return (
     <div className="App">
@@ -81,12 +81,12 @@ function App() {
           <Route path={SEARCH_PATH(":searchWord")} element={<Search />} />
           <Route path={USER_PATH(":userEmail")} element={<User />} />
           <Route path={BOARD_PATH()}>
-            <Route index element={<Board />} />
+            {/* <Route index element={<Board />} /> */}
+            <Route path={BOARD_WRITE_PATH()} element={<BoardWrite />} />
             <Route
               path={BOARD_DETAIL_PATH(":boardNumber")}
               element={<BoardDetail />}
             />
-            <Route path={BOARD_WRITE_PATH()} element={<BoardWrite />} />
             <Route
               path={BOARD_UPDATE_PATH(":boardNumber")}
               element={<BoardUpdate />}

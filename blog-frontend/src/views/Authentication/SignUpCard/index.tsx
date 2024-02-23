@@ -3,7 +3,7 @@ import "./style.css";
 import { ChangeEvent, KeyboardEvent, useEffect, useRef, useState } from "react";
 import { error } from "console";
 import { useNavigate } from "react-router-dom";
-import { AUTH_PATH, AUTH_SIGN_IN_PATH } from "constant";
+import { AUTH_PATH, AUTH_SIGN_IN_PATH, MAIN_PATH } from "constant";
 import { Address, useDaumPostcodePopup } from "react-daum-postcode";
 import { SignInRequestDto, SignUpRequestDto } from "apis/request/auth";
 import { signUpRequest } from "apis";
@@ -65,6 +65,8 @@ const SignUpCard = () => {
     if (code === "DBE") alert("데이터베이스 오류 입니다.");
 
     if (code !== "SU") return;
+
+    navigate(MAIN_PATH());
   };
 
   // 요소 참조 상태

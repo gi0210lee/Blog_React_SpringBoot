@@ -2,31 +2,31 @@ import { ICommentListItem } from "types/interface";
 
 const commentListMock: ICommentListItem[] = [
   {
-    commentUserProfileImage: "https://picsum.photos/id/1/50",
-    commentUserNickname: "유저닉네임1",
-    commentWriteDate: new Date(),
-    commentContent:
+    profileImage: "https://picsum.photos/id/1/50",
+    nickname: "유저닉네임1",
+    writeDatetime: new Date(),
+    content:
       "오늘 아침 뭐 먹을까, 점심 뭐먹을까, 저녁 뭐먹을까 오늘 아침 뭐 먹을까, 점심 뭐먹을까, 저녁 뭐먹을까 오늘 아침 뭐 먹을까, 점심 뭐먹을까, 저녁 뭐먹을까",
   },
   {
-    commentUserProfileImage: "https://picsum.photos/id/1/50",
-    commentUserNickname: "유저닉네임2",
-    commentWriteDate: new Date(),
-    commentContent:
+    profileImage: "https://picsum.photos/id/1/50",
+    nickname: "유저닉네임2",
+    writeDatetime: new Date(),
+    content:
       "오늘 아침 뭐 먹을까, 점심 뭐먹을까, 저녁 뭐먹을까 오늘 아침 뭐 먹을까, 점심 뭐먹을까, 저녁 뭐먹을까 오늘 아침 뭐 먹을까, 점심 뭐먹을까, 저녁 뭐먹을까",
   },
   {
-    commentUserProfileImage: "https://picsum.photos/id/1/50",
-    commentUserNickname: "유저닉네임3",
-    commentWriteDate: new Date(),
-    commentContent:
+    profileImage: "https://picsum.photos/id/1/50",
+    nickname: "유저닉네임3",
+    writeDatetime: new Date(),
+    content:
       "오늘 아침 뭐 먹을까, 점심 뭐먹을까, 저녁 뭐먹을까 오늘 아침 뭐 먹을까, 점심 뭐먹을까, 저녁 뭐먹을까 오늘 아침 뭐 먹을까, 점심 뭐먹을까, 저녁 뭐먹을까",
   },
   {
-    commentUserProfileImage: "https://picsum.photos/id/1/50",
-    commentUserNickname: "유저닉네임4",
-    commentWriteDate: new Date(),
-    commentContent:
+    profileImage: "https://picsum.photos/id/1/50",
+    nickname: "유저닉네임4",
+    writeDatetime: new Date(),
+    content:
       "오늘 아침 뭐 먹을까, 점심 뭐먹을까, 저녁 뭐먹을까 오늘 아침 뭐 먹을까, 점심 뭐먹을까, 저녁 뭐먹을까 오늘 아침 뭐 먹을까, 점심 뭐먹을까, 저녁 뭐먹을까",
   },
 ];

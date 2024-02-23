@@ -24,7 +24,6 @@ public class CommentEntity {
     private int boardNumber;
     private String userEmail;
     private String content;
-    private String userProfileImage;
     private Date writeDatetime;
 
     public CommentEntity(PostCommentRequestDto dto, Integer boardNumber, String email) {

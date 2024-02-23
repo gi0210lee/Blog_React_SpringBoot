@@ -67,7 +67,7 @@ const SignInCard = () => {
   // 로그인 버튼 이벤트
   const onSignInButtonClickHandler = () => {
     const requestBody: SignInRequestDto = { email, password };
-    signInRequest(requestBody).then((response) => signInResponse(response));
+    signInRequest(requestBody).then(signInResponse);
   };
 
   const onSignUpButtonClickHandler = () => {

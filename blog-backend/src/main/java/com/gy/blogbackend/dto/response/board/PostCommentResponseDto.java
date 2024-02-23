@@ -5,7 +5,6 @@ import com.gy.blogbackend.common.ResponseMessage;
 import com.gy.blogbackend.dto.response.ResponseDto;
 import lombok.Getter;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 
 @Getter

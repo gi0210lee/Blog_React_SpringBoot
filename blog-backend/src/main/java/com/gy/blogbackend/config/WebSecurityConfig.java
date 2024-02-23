@@ -30,21 +30,14 @@ public class WebSecurityConfig {
     @Bean
     protected SecurityFilterChain configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
-                // cors 정책: 현재는 application에서 작업을 해뒀음으로 기본 설정 사용
-                .cors().and()
-                // csrf 대책: 현재는 csrf에 대한 대책을 비활서화
-                .csrf().disable()
-                // basic 인증: 현재는 Bear token 인증 방식을 사용하기 때문에 비활설화
-                .httpBasic().disable()
-                // 세션 기반 인증: 현재는 session 기반 인증을 사용하기 않기 때문에 사용안함
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-                // '/', '/api/auth' 모듈에 대해서는 모두 허용
+                .cors().and() // cors 정책: CorsConfig 설정
+                .csrf().disable() // csrf 대책: 현재는 csrf에 대한 대책을 비활성화
+                .httpBasic().disable() // basic 인증: 현재는 Bear token 인증 방식을 사용하기 때문에 비활설화
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and() // 세션 기반 인증: 현재는 session 기반 인증을 사용하기 않기 때문에 사용안함
                 .authorizeRequests()
-                .requestMatchers("/", "/api/v1/auth/**", "/api/v1/search/**", "/file/**").permitAll()
+                .requestMatchers("/", "/api/v1/auth/**", "/api/v1/search/**", "/file/**").permitAll() // '/', '/api/auth' 모듈에 대해서는 모두 허용
                 .requestMatchers(HttpMethod.GET, "/api/v1/board/**", "/api/v1/user/*").permitAll()
-//                .requestMatchers(HttpMethod.PATCH, "/api/v1/board/**").permitAll()
-                // 나머지 request 에 대해서는 모두 인증된 사용자만 사용 가능
-                .anyRequest().authenticated().and()
+                .anyRequest().authenticated().and() // 나머지 request 에 대해서는 모두 인증된 사용자만 사용 가능
                 .exceptionHandling().authenticationEntryPoint(new FailedAuthenticationEntryPoint());
 
         httpSecurity.addFilterBefore(jwtAuthenticaitonFilter, UsernamePasswordAuthenticationFilter.class);
