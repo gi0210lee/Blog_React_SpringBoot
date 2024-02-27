@@ -1,6 +1,7 @@
 package com.gy.blogbackend.entity;
 
 
+import com.gy.blogbackend.dto.request.board.PatchBoardRequestDto;
 import com.gy.blogbackend.dto.request.board.PostBoardRequestDto;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -64,5 +65,10 @@ public class BoardEntity {
     public void increaseCommentCount() {
         this.commentCount++;
     }
-    
+
+
+    public void patchBoard(PatchBoardRequestDto dto) {
+        this.title = dto.getTitle();
+        this.content = dto.getContent();
+    }
 }

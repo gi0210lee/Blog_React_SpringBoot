@@ -16,6 +16,15 @@
   justify-content: center;
 }
 
+.icon-box-small {
+  width: 16px;
+  height: 16px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .icon-button {
   border-radius: 50% 50%;
 
@@ -51,6 +60,22 @@
 
 .expand-more-icon {
   background-image: url(assets/image/expand-more.svg);
+}
+
+.expand-right-icon {
+  background-image: url(assets/image/arrow_right.svg);
+}
+
+.expand-left-icon {
+  background-image: url(assets/image/arrow_left.svg);
+}
+
+.expand-double-right-icon {
+  background-image: url(assets/image/double_arrow_right.svg);
+}
+
+.expand-double-left-icon {
+  background-image: url(assets/image/double_arrow_left.svg);
 }
 
 .logo-light-icon {
@@ -96,6 +121,7 @@
 .favorite-fill-icon {
   background-image: url(assets/image/favorite-fill.svg);
 }
+
 .favorite-light-icon {
   background-image: url(assets/image/favorite-light.svg);
 }

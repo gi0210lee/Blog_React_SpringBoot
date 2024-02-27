@@ -2,6 +2,7 @@
 package com.gy.blogbackend.controller;
 
 
+import com.gy.blogbackend.dto.request.board.PatchBoardRequestDto;
 import com.gy.blogbackend.dto.request.board.PostBoardRequestDto;
 import com.gy.blogbackend.dto.request.board.PostCommentRequestDto;
 import com.gy.blogbackend.dto.response.board.*;
@@ -67,6 +68,12 @@ public class BoardController {
     @PutMapping("/{boardNumber}/favorite")
     public ResponseEntity<? super PutFavoriteResponseDto> putFavorite(@PathVariable("boardNumber") Integer boardNumber, @AuthenticationPrincipal String email) {
         ResponseEntity<? super PutFavoriteResponseDto> response = boardService.putFavorite(boardNumber, email);
+        return response;
+    }
+
+    @PatchMapping("/{boardNumber}")
+    public ResponseEntity<? super PatchBoardResponseDto> patchBoard(@RequestBody @Valid PatchBoardRequestDto requestBody, @PathVariable("boardNumber") Integer boardNumber, @AuthenticationPrincipal String email) {
+        ResponseEntity<? super PatchBoardResponseDto> response = boardService.patchBoard(requestBody, boardNumber, email);
         return response;
     }
 

@@ -35,6 +35,7 @@ import {
 import dayjs from "dayjs";
 import { useCookies } from "react-cookie";
 import { PostCommentRequestDto } from "apis/request/board";
+import { usePagination } from "hooks";
 
 export default function BoardDetail() {
   const { boardNumber } = useParams();
@@ -207,13 +208,25 @@ export default function BoardDetail() {
   // 게시물 하단
   const BoardDetailBottom = () => {
     // 상태
+    const {
+      currentPage,
+      setCurrentPage,
+      currentSection,
+      setCurrentSection,
+      viewList,
+      viewPageList,
+      totalSection,
+      setTotalList,
+    } = usePagination<ICommentListItem>(3);
+
     const commentRef = useRef<HTMLTextAreaElement | null>(null);
     const [favoriteList, setFavoriteList] = useState<IFavoriteListItem[]>([]);
-    const [commentList, setCommentList] = useState<ICommentListItem[]>([]);
+    // const [commentList, setCommentList] = useState<ICommentListItem[]>([]);
     const [isFavorite, setIsFavorite] = useState<boolean>(false);
     const [showFavorite, setShowFavorite] = useState<boolean>(false);
-    const [showComment, setShowComment] = useState<boolean>(false);
+    const [totalCommentCount, setTotalCommentCount] = useState<number>(0);
     const [comment, setComment] = useState<string>("");
+    const [showComment, setShowComment] = useState<boolean>(false);
 
     // 이벤트
     const onFavoriteClickHandler = () => {
@@ -268,6 +281,7 @@ export default function BoardDetail() {
       if (code !== "SU") return;
 
       setComment("");
+      setTotalCommentCount(0);
 
       if (!boardNumber) return;
       getCommentListRequest(boardNumber).then(getCommentListResponse);
@@ -324,7 +338,9 @@ export default function BoardDetail() {
       if (code !== "SU") return;
 
       const { commentList } = responseBody as GetCommentListResponseDto;
-      setCommentList(commentList);
+
+      setTotalList(commentList);
+      setTotalCommentCount(commentList.length);
     };
 
     // 이펙트
@@ -360,7 +376,7 @@ export default function BoardDetail() {
           <div className="icon-button">
             <div className="icon comment-icon"></div>
           </div>
-          <div className="board-detail-bottom-button-text">{`댓글 ${commentList.length}`}</div>
+          <div className="board-detail-bottom-button-text">{`댓글 ${totalCommentCount}`}</div>
           <div className="icon-button" onClick={onShowCommentClickHandler}>
             {showComment ? (
               <div className="icon up-light-icon"></div>
@@ -389,17 +405,24 @@ export default function BoardDetail() {
             <div className="board-detail-bottom-comment-container">
               <div className="board-detail-bottom-comment-title">
                 {`댓글 `}
-                <span className="emphasis">{commentList.length}</span>
+                <span className="emphasis">{totalCommentCount}</span>
               </div>
               <div className="board-detail-bottom-comment-list-container">
-                {commentList.map((item) => (
-                  <CommentItem commentItem={item} />
+                {viewList.map((item, index) => (
+                  <CommentItem key={index} commentItem={item} />
                 ))}
               </div>
             </div>
             <div className="divider"></div>
             <div className="board-detail-bottom-comment-pagination-box">
-              <Pagination />
+              <Pagination
+                currentPage={currentPage}
+                currentSection={currentSection}
+                setCurrentPage={setCurrentPage}
+                setCurrentSection={setCurrentSection}
+                viewPageList={viewPageList}
+                totalSection={totalSection}
+              />
             </div>
             {loginUser !== null && (
               <div className="board-detail-bottom-comment-input-box">
