@@ -349,8 +349,6 @@ export default function BoardDetail() {
 
       getFavoriteListRequest(boardNumber).then(getFavoriteListResponse);
       getCommentListRequest(boardNumber).then(getCommentListResponse);
-      // setFavoriteList(favoriteListMock);
-      // setCommentList(commentListMock);
     }, [boardNumber]);
 
     return (
