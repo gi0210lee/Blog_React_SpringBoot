@@ -17,6 +17,10 @@ public interface BoardService {
 
     ResponseEntity<? super GetCommentListResponseDto> getCommentList(Integer boardNumber);
 
+    ResponseEntity<? super GetLatestBoardListResponseDto> getLastestBoardList();
+
+    ResponseEntity<? super GetTop3BoardListResponseDto> getTop3BoardList();
+
     ResponseEntity<? super PostBoardResponseDto> postBoard(PostBoardRequestDto dto, String email, String nickname);
 
     ResponseEntity<? super PutFavoriteResponseDto> putFavorite(Integer boardNumber, String email);

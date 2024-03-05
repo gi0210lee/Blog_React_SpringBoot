@@ -7,22 +7,25 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.Date;
+
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity(name = "board_list_view")
-@Table(name = "board_list_view")
+@Entity(name = "BOARD_LIST_VIEW")
+@Table(name = "BOARD_LIST_VIEW")
 public class BoardListViewEntity {
 
     @Id
     private int boardNumber;
     private String title;
     private String content;
-    private String titleImage;
+    private String image;
     private int viewCount;
     private int favoriteCount;
-    private String writeDate;
+    private int commentCount;
+    private Date writeDatetime;
     private String writerEmail;
-    private String WriterNickname;
-    private String WriterProfileImage;
+    private String writerNickname;
+    private String writerProfileImage;
 }
