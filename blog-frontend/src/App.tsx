@@ -23,7 +23,6 @@ import { GetSignInUserRequest } from "apis";
 import { GetSignInUserResponseDto } from "apis/response/user";
 import { ResponseDto } from "apis/response";
 import { IUser } from "types/interface";
-import Board from "views/Board";
 
 function App() {
   const { setLoginUser, resetLoginUser } = useLoginUserStore();

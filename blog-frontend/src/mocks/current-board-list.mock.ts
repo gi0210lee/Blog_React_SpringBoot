@@ -1,12 +1,12 @@
 import { IBoardListItem } from "types/interface";
 
-const latestBoardListMock: IBoardListItem[] = [
+const currentBoardListMock: IBoardListItem[] = [
   {
     boardNumber: 1,
     boardTitle: "오늘 뭐먹지",
     boardContent: "온르 아침 뭐먹을까",
-    boardImage: "https://picsum.photos/id/4/50",
-    boardWriterProfileImage: "https://picsum.photos/id/5/50",
+    boardImage: "https://source.unsplash.com/random/200x200/?cooking",
+    boardWriterProfileImage: "https://source.unsplash.com/random/100x100/?user",
     boardWriterNickname: "닉네임",
     boardWriteDate: new Date(),
     boardViewCount: 10,
@@ -17,8 +17,8 @@ const latestBoardListMock: IBoardListItem[] = [
     boardNumber: 2,
     boardTitle: "오늘 뭐먹지 맛난거 꾸역꾸역",
     boardContent: "온르 점심 뭐먹을까",
-    boardImage: "https://picsum.photos/id/4/50",
-    boardWriterProfileImage: "https://picsum.photos/id/5/50",
+    boardImage: "https://source.unsplash.com/random/200x200/?cooking",
+    boardWriterProfileImage: "https://source.unsplash.com/random/100x100/?user",
     boardWriterNickname: "닉네임",
     boardWriteDate: new Date(),
     boardViewCount: 10,
@@ -29,8 +29,8 @@ const latestBoardListMock: IBoardListItem[] = [
     boardNumber: 3,
     boardTitle: "오늘 뭐먹지 맛난거 꾸역꾸역",
     boardContent: "온르 점심 뭐먹을까 저녁은 뭐먹을까",
-    boardImage: "https://picsum.photos/id/4/50",
-    boardWriterProfileImage: "https://picsum.photos/id/5/50",
+    boardImage: "https://source.unsplash.com/random/200x200/?cooking",
+    boardWriterProfileImage: "https://source.unsplash.com/random/100x100/?user",
     boardWriterNickname: "닉네임",
     boardWriteDate: new Date(),
     boardViewCount: 10,
@@ -39,4 +39,4 @@ const latestBoardListMock: IBoardListItem[] = [
   },
 ];
 
-export default latestBoardListMock;
+export default currentBoardListMock;

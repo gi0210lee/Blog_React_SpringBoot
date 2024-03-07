@@ -3,13 +3,14 @@ import "./style.css";
 import defaultProfileImage from "assets/image/default-profile-image.png";
 import { IBoardListItem } from "types/interface";
 import { useNavigate } from "react-router-dom";
+import { BOARD_DETAIL_PATH, BOARD_PATH } from "constant";
 
 interface Props {
   top3Item: IBoardListItem;
 }
 
 export default function Top3Item({ top3Item }: Props) {
-  //   const navigate = useNavigate();
+  const navigate = useNavigate();
   const {
     boardNumber,
     boardTitle,
@@ -24,7 +25,7 @@ export default function Top3Item({ top3Item }: Props) {
   } = top3Item;
 
   const onClickHandler = () => {
-    // navigator(boardNumber)
+    navigate(BOARD_PATH() + "/" + BOARD_DETAIL_PATH(boardNumber));
   };
 
   return (
