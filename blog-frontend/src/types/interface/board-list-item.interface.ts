@@ -1,14 +1,15 @@
 interface IBoardListItem {
   boardNumber: number;
-  boardTitle: string;
-  boardContent: string;
-  boardImage: string | null;
-  boardWriterProfileImage: string | null;
-  boardWriterNickname: string;
-  boardWriteDate: Date;
-  boardViewCount: number;
-  boardFavoriteCount: number;
-  boardCommentCount: number;
+  title: string;
+  content: string;
+  image: string | null;
+  viewCount: number;
+  favoriteCount: number;
+  commentCount: number;
+  writeDatetime: Date;
+  writerEmail: string;
+  writerNickname: string;
+  writerProfileImage: string | null;
 }
 
 export default IBoardListItem;

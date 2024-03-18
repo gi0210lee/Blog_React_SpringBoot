@@ -13,15 +13,16 @@ export default function Top3Item({ top3Item }: Props) {
   const navigate = useNavigate();
   const {
     boardNumber,
-    boardTitle,
-    boardContent,
-    boardImage,
-    boardWriterProfileImage,
-    boardWriterNickname,
-    boardWriteDate,
-    boardViewCount,
-    boardFavoriteCount,
-    boardCommentCount,
+    title,
+    content,
+    image,
+    viewCount,
+    favoriteCount,
+    commentCount,
+    writeDatetime,
+    writerEmail,
+    writerNickname,
+    writerProfileImage,
   } = top3Item;
 
   const onClickHandler = () => {
@@ -32,7 +33,7 @@ export default function Top3Item({ top3Item }: Props) {
     <div
       className="top3-item"
       style={{
-        backgroundImage: `url(${boardImage})`,
+        backgroundImage: `url(${image})`,
       }}
       onClick={onClickHandler}
     >
@@ -43,27 +44,25 @@ export default function Top3Item({ top3Item }: Props) {
               className="top3-item-profile-image"
               style={{
                 backgroundImage: `url(${
-                  boardWriterProfileImage
-                    ? boardWriterProfileImage
-                    : defaultProfileImage
+                  writerProfileImage ? writerProfileImage : defaultProfileImage
                 })`,
               }}
             ></div>
           </div>
           <div className="top3-item-write-box">
-            <div className="top3-item-nickname">{boardWriterNickname}</div>
+            <div className="top3-item-nickname">{writerNickname}</div>
             <div className="top3-item-write-date">
-              {boardWriteDate.toLocaleString()}
+              {writeDatetime.toLocaleString()}
             </div>
           </div>
         </div>
         <div className="top3-item-middle">
-          <div className="top3-item-title">{boardTitle}</div>
-          <div className="top3-item-content">{boardContent}</div>
+          <div className="top3-item-title">{title}</div>
+          <div className="top3-item-content">{content}</div>
         </div>
         <div className="top3-item-bottom">
           <div className="top3-item-counts">
-            {`댓글 ${boardCommentCount} 좋아요 ${boardFavoriteCount} 조회수 ${boardViewCount}`}
+            {`댓글 ${commentCount} 좋아요 ${favoriteCount} 조회수 ${viewCount}`}
           </div>
         </div>
       </div>

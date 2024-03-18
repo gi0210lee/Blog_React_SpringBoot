@@ -1,13 +1,21 @@
 import React, { useEffect, useState } from "react";
 import "./style.css";
 import Top3Item from "components/Top3Item";
-import { IBoard, IBoardListItem } from "types/interface";
-import { currentBoardListMock, top3BoardListMock } from "mocks";
+import { IBoardListItem } from "types/interface";
 import BoardItem from "components/BoardItem";
-import { idText } from "typescript";
-import Pagination from "components/Pagination";
 import { useNavigate } from "react-router-dom";
 import { SEARCH_PATH } from "constant";
+import {
+  getLatestBoardListRequest,
+  getPopularListRequest,
+  getTop3BoardListRequest,
+} from "apis";
+import { GetTop3BoardListResponseDto } from "apis/response/board";
+import { ResponseDto } from "apis/response";
+import { usePagination } from "hooks";
+import GetLatestBoardListResponseDto from "apis/response/board/get-latest-board-list.response.dto";
+import Pagination from "components/Pagination";
+import { GetPopularListResponseDto } from "apis/response/search";
 
 export default function Main() {
   // 상태
@@ -16,12 +24,26 @@ export default function Main() {
   // 메인 상단 컴포넌트
   const MainTop = () => {
     // 상태
-    const [top3List, setTop3List] = useState<IBoardListItem[]>([]);
+    const [top3BoardList, setTop3BoardList] = useState<IBoardListItem[]>([]);
+
+    // 쿼리 응답
+    const getTop3BoardListResponse = (
+      responseBody: GetTop3BoardListResponseDto | ResponseDto | null
+    ) => {
+      if (!responseBody) return;
+      const { code } = responseBody;
+      if (code == "DBE") alert("데이터베이스 오류입니다.");
+      if (code != "SU") return;
+
+      const { top3List } = responseBody as GetTop3BoardListResponseDto;
+      setTop3BoardList(top3List);
+    };
 
     // 이펙트
     useEffect(() => {
-      setTop3List(top3BoardListMock);
+      getTop3BoardListRequest().then(getTop3BoardListResponse);
     }, []);
+
     return (
       <div id="main-top-wrapper">
         <div className="main-top-container">
@@ -31,7 +53,7 @@ export default function Main() {
           <div className="main-top-contents-box">
             <div className="main-top-contents-title">{"주간 Top 3 게시글"}</div>
             <div className="main-top-contents">
-              {top3List.map((item, index) => (
+              {top3BoardList.map((item, index) => (
                 <Top3Item key={index} top3Item={item} />
               ))}
             </div>
@@ -44,9 +66,16 @@ export default function Main() {
   // 메인 하단 컴포넌트
   const MainBottom = () => {
     // 상태
-    const [currentBoardList, setCurrentBoardList] = useState<IBoardListItem[]>(
-      []
-    );
+    const {
+      currentPage,
+      setCurrentPage,
+      currentSection,
+      setCurrentSection,
+      viewList,
+      viewPageList,
+      totalSection,
+      setTotalList,
+    } = usePagination<IBoardListItem>(5);
     const [popularWordList, setPopularWordList] = useState<string[]>([]);
 
     // 이벤트
@@ -54,22 +83,35 @@ export default function Main() {
       navigate(SEARCH_PATH(word));
     };
 
+    // 쿼리 응답
+    const getLatestBoardListResponse = (
+      responseBody: GetLatestBoardListResponseDto | ResponseDto | null
+    ) => {
+      if (!responseBody) return;
+      const { code } = responseBody;
+      if (code === "DBE") alert("데이터베이스 오류입니다.");
+      if (code !== "SU") return;
+
+      const { latestList } = responseBody as GetLatestBoardListResponseDto;
+      setTotalList(latestList);
+    };
+
+    const getPopularListResponse = (
+      responseBody: GetPopularListResponseDto | ResponseDto | null
+    ) => {
+      if (!responseBody) return;
+      const { code } = responseBody;
+      if (code === "DBE") alert("데이터베이스 오류입니다.");
+      if (code !== "SU") return;
+
+      const { popularWordList } = responseBody as GetPopularListResponseDto;
+      setPopularWordList(popularWordList);
+    };
+
     // 이펙트
     useEffect(() => {
-      setCurrentBoardList(currentBoardListMock);
-      setPopularWordList([
-        "hi",
-        "hello",
-        "world",
-        "도",
-        "레",
-        "미",
-        "파",
-        "솔",
-        "라",
-        "시",
-        "도",
-      ]);
+      getLatestBoardListRequest().then(getLatestBoardListResponse);
+      getPopularListRequest().then(getPopularListResponse);
     }, []);
 
     return (
@@ -78,7 +120,7 @@ export default function Main() {
           <div className="main-bottom-title">{"최신 게시물"}</div>
           <div className="main-bottom-contents-box">
             <div className="main-bottom-current-contents">
-              {currentBoardList.map((item, index) => (
+              {viewList.map((item, index) => (
                 <BoardItem key={index} boardItem={item} />
               ))}
             </div>
@@ -104,7 +146,14 @@ export default function Main() {
             </div>
           </div>
           <div className="main-bottom-pagination-box">
-            {/* <Pagination /> */}
+            <Pagination
+              currentPage={currentPage}
+              currentSection={currentSection}
+              setCurrentPage={setCurrentPage}
+              setCurrentSection={setCurrentSection}
+              viewPageList={viewPageList}
+              totalSection={totalSection}
+            />
           </div>
         </div>
       </div>

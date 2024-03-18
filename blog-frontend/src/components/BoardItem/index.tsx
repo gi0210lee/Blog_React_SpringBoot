@@ -12,15 +12,16 @@ interface Props {
 export default function BoardItem({ boardItem }: Props) {
   const {
     boardNumber,
-    boardTitle,
-    boardContent,
-    boardImage,
-    boardWriterProfileImage,
-    boardWriterNickname,
-    boardWriteDate,
-    boardViewCount,
-    boardFavoriteCount,
-    boardCommentCount,
+    title,
+    content,
+    image,
+    viewCount,
+    favoriteCount,
+    commentCount,
+    writeDatetime,
+    writerEmail,
+    writerNickname,
+    writerProfileImage,
   } = boardItem;
 
   const navigate = useNavigate();
@@ -38,36 +39,34 @@ export default function BoardItem({ boardItem }: Props) {
               className="board-item-profile-image"
               style={{
                 background: `url(${
-                  boardWriterProfileImage
-                    ? boardWriterProfileImage
-                    : defaultProfileImage
+                  writerProfileImage ? writerProfileImage : defaultProfileImage
                 }})`,
               }}
             ></div>
           </div>
           <div className="board-item-write-box">
-            <div className="board-item-nickname">{boardWriterNickname}</div>
+            <div className="board-item-nickname">{writerNickname}</div>
             <div className="board-item-write-date">
-              {boardWriteDate.toLocaleString()}
+              {writeDatetime.toLocaleString()}
             </div>
           </div>
         </div>
         <div className="board-item-middle">
-          <div className="board-item-title">{boardTitle}</div>
-          <div className="board-item-content">{boardContent}</div>
+          <div className="board-item-title">{title}</div>
+          <div className="board-item-content">{content}</div>
         </div>
         <div className="board-item-bottom">
           <div className="board-item-counts">
-            {`댓글: ${boardCommentCount}  좋아요: ${boardFavoriteCount}  조회수: ${boardViewCount}`}
+            {`댓글: ${commentCount}  좋아요: ${favoriteCount}  조회수: ${viewCount}`}
           </div>
         </div>
       </div>
-      {boardImage !== null && (
+      {image !== null && (
         <div className="board-item-image-box">
           <div
             className="board-item-image"
             style={{
-              backgroundImage: `url(${boardImage})`,
+              backgroundImage: `url(${image})`,
             }}
           ></div>
         </div>
