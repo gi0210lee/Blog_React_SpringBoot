@@ -42,9 +42,7 @@ public class SearchServiceImplement implements SearchService {
         List<GetRelationListResultSet> resultSets = new ArrayList<>();
 
         try {
-
             resultSets = searchLogRepository.getRelationList(searchWord);
-
         } catch (Exception exception) {
             exception.printStackTrace();
             return ResponseDto.databaseError();

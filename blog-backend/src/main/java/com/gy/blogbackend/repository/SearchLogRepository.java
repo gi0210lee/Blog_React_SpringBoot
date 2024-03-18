@@ -25,7 +25,7 @@ public interface SearchLogRepository extends JpaRepository<SearchLogEntity, Inte
 
     @Query(
             value = "SELECT " +
-                    "    relation_word, " +
+                    "    relation_word AS relationWord, " +
                     "    count(relation_word) AS count " +
                     "FROM " +
                     "    \"search_log\" sl " +
@@ -36,6 +36,6 @@ public interface SearchLogRepository extends JpaRepository<SearchLogEntity, Inte
                     "    RELATION_WORD " +
                     "ORDER BY " +
                     "    COUNT DESC " +
-                    "OFFSET 15 ROWS ", nativeQuery = true)
+                    "OFFSET 0 ROWS FETCH NEXT 15 ROWS ONLY ", nativeQuery = true)
     public List<GetRelationListResultSet> getRelationList(String searchWord);
 }

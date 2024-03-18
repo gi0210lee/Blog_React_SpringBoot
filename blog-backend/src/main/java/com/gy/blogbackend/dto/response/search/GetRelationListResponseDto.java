@@ -21,7 +21,7 @@ public class GetRelationListResponseDto extends ResponseDto {
 
         List<String> relativeWordList = new ArrayList<>();
         for (GetRelationListResultSet resultSet : resultSets) {
-            String relativeWord = resultSet.getSearchWord();
+            String relativeWord = resultSet.getRelationWord();
             relativeWordList.add(relativeWord);
         }
         this.relativeWordList = relativeWordList;
