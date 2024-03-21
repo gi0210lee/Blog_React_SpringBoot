@@ -3,7 +3,6 @@ package com.gy.blogbackend.dto.response.auth;
 import com.gy.blogbackend.common.ResponseCode;
 import com.gy.blogbackend.common.ResponseMessage;
 import com.gy.blogbackend.dto.response.ResponseDto;
-import com.sun.net.httpserver.HttpsServer;
 import lombok.Getter;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

@@ -4,7 +4,6 @@ import com.gy.blogbackend.common.ResponseCode;
 import com.gy.blogbackend.common.ResponseMessage;
 import com.gy.blogbackend.dto.response.ResponseDto;
 import lombok.Getter;
-import org.apache.coyote.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 

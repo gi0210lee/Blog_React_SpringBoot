@@ -2,7 +2,6 @@ package com.gy.blogbackend.dto.response;
 
 import com.gy.blogbackend.common.ResponseCode;
 import com.gy.blogbackend.common.ResponseMessage;
-import com.gy.blogbackend.dto.response.auth.SignUpResponseDto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.springframework.http.HttpStatus;
@@ -24,5 +23,5 @@ public class ResponseDto {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseBody);
     }
 
-    
+
 }

@@ -6,10 +6,7 @@ import com.gy.blogbackend.dto.request.auth.SignUpRequestDto;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 
 @Data
@@ -22,10 +19,12 @@ public class UserEntity {
     @Id
     private String email;
     private String password;
+    @Setter
     private String nickname;
     private String telNumber;
     private String address;
     private String addressDetail;
+    @Setter
     private String profileImage;
     @ColumnDefault("False")
     private String agreedPersonal;

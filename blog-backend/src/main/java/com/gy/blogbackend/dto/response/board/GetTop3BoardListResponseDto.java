@@ -7,7 +7,6 @@ import com.gy.blogbackend.dto.response.ResponseDto;
 import com.gy.blogbackend.entity.BoardListViewEntity;
 import lombok.Getter;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 
 import java.util.List;
