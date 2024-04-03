@@ -18,6 +18,7 @@ public class GetLatestBoardListResponseDto extends ResponseDto {
 
     public GetLatestBoardListResponseDto(List<BoardListViewEntity> boardListViewEntities) {
         super(ResponseCode.SUCCESS, ResponseMessage.SUCCESS);
+        
         this.latestList = BoardListItem.getList(boardListViewEntities);
     }
 

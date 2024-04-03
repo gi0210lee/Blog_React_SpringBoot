@@ -40,6 +40,15 @@
   justify-content: center;
 }
 
+.icon-box-large {
+  width: 40px;
+  height: 40px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .icon-button {
   border-radius: 50% 50%;
 
@@ -153,6 +162,10 @@
   background-image: url(assets/image/chat.svg);
 }
 
+.edit-icon {
+  background-image: url(assets/image/edit.svg);
+}
+
 .black-button {
   border-radius: 45px;
   width: 95px;
@@ -249,4 +262,8 @@
 .white-button:hover {
   background-color: rgba(0, 0, 0, 0.5);
   /* background-color: red; */
+}
+
+.image-box-white-icon {
+  background-image: url(assets/image/image.svg);
 }

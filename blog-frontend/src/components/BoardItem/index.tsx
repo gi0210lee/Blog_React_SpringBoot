@@ -38,7 +38,7 @@ export default function BoardItem({ boardItem }: Props) {
             <div
               className="board-item-profile-image"
               style={{
-                background: `url(${
+                backgroundImage: `url(${
                   writerProfileImage ? writerProfileImage : defaultProfileImage
                 }})`,
               }}
