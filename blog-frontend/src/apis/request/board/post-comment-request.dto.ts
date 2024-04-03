@@ -1,5 +1,5 @@
-interface PostCommentRequestDto {
+interface IPostCommentRequestDto {
   content: string;
 }
 
-export default PostCommentRequestDto;
+export default IPostCommentRequestDto;

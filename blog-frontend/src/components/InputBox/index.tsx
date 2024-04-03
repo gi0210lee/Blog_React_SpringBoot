@@ -7,7 +7,7 @@ import {
 } from "react";
 import "./style.css";
 
-interface Props {
+interface IProps {
   label: string;
   type: "text" | "password";
   placeholder: string;
@@ -28,7 +28,7 @@ interface Props {
   onKeyDown?: (event: KeyboardEvent<HTMLInputElement>) => void;
 }
 
-const InputBox = forwardRef<HTMLInputElement, Props>((props: Props, ref) => {
+const InputBox = forwardRef<HTMLInputElement, IProps>((props: IProps, ref) => {
   const {
     label,
     type,

@@ -1,5 +1,5 @@
 import ResponseDto from "../response.dto";
 
-interface DeleteBoardResponseDto extends ResponseDto {}
+interface IDeleteBoardResponseDto extends ResponseDto {}
 
-export default DeleteBoardResponseDto;
+export default IDeleteBoardResponseDto;

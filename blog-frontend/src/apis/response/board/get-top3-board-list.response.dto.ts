@@ -1,6 +1,6 @@
 import { IBoardListItem } from "types/interface";
 import ResponseDto from "../response.dto";
 
-export default interface GetTop3BoardListResponseDto extends ResponseDto {
+export default interface IGetTop3BoardListResponseDto extends ResponseDto {
   top3List: IBoardListItem[];
 }

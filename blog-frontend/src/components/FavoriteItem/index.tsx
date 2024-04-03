@@ -3,11 +3,11 @@ import "./style.css";
 import { IFavoriteListItem } from "types/interface";
 import defaultProfileImage from "assets/image/default-profile-image.png";
 
-interface Props {
+interface IProps {
   favoriteItem: IFavoriteListItem;
 }
 
-export default function FavoriteItem({ favoriteItem }: Props) {
+export default function FavoriteItem({ favoriteItem }: IProps) {
   const { email, nickname, profileImage } = favoriteItem;
   return (
     <div className="favorite-item">

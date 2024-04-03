@@ -4,11 +4,11 @@ import { ICommentListItem } from "types/interface";
 import dayjs from "dayjs";
 import defualtProfileImage from "../../assets/image/default-profile-image.png";
 
-interface Props {
+interface IProps {
   commentItem: ICommentListItem;
 }
 
-export default function CommentItem({ commentItem }: Props) {
+export default function CommentItem({ commentItem }: IProps) {
   const { profileImage, nickname, writeDatetime, content } = commentItem;
 
   const getElapsedTime = () => {

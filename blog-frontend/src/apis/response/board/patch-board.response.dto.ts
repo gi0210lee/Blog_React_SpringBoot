@@ -1,5 +1,5 @@
 import ResponseDto from "../response.dto";
 
-interface PatchBoardResponseDto extends ResponseDto {}
+interface IPatchBoardResponseDto extends ResponseDto {}
 
-export default PatchBoardResponseDto;
+export default IPatchBoardResponseDto;

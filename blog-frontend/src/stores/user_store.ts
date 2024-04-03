@@ -1,12 +1,12 @@
 import { create } from "zustand";
 
-interface UserStore {
+interface IUserStore {
   user: any;
   setUser: (user: any) => void;
   removeUser: () => void;
 }
 
-const useStore = create<UserStore>((set) => ({
+const useStore = create<IUserStore>((set) => ({
   user: null,
   setUser: (user: any) => {
     set((state) => ({ ...state, user }));

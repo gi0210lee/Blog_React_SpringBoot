@@ -1,6 +1,6 @@
 import { create } from "zustand";
 
-interface BoardStore {
+interface IBoardStore {
   title: string;
   content: string;
   boardImageFileList: File[];
@@ -10,7 +10,7 @@ interface BoardStore {
   resetBoard: () => void;
 }
 
-const useBoardStore = create<BoardStore>((set) => ({
+const useBoardStore = create<IBoardStore>((set) => ({
   title: "",
   content: "",
   boardImageFileList: [],

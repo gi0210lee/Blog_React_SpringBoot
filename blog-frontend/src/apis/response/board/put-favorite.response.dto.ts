@@ -1,5 +1,5 @@
 import ResponseDto from "../response.dto";
 
-interface PutfavoriteResponseDto extends ResponseDto {}
+interface IPutfavoriteResponseDto extends ResponseDto {}
 
-export default PutfavoriteResponseDto;
+export default IPutfavoriteResponseDto;

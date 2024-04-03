@@ -5,11 +5,11 @@ import { IBoardListItem } from "types/interface";
 import { useNavigate } from "react-router-dom";
 import { BOARD_DETAIL_PATH, BOARD_PATH } from "constant";
 
-interface Props {
+interface IProps {
   top3Item: IBoardListItem;
 }
 
-export default function Top3Item({ top3Item }: Props) {
+export default function Top3Item({ top3Item }: IProps) {
   const navigate = useNavigate();
   const {
     boardNumber,

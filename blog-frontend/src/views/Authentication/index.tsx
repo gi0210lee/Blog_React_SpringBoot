@@ -3,11 +3,11 @@ import "./style.css";
 import SignInCard from "./SignInCard";
 import SignUpCard from "./SignUpCard";
 
-interface Props {
+interface IProps {
   signIn: boolean;
 }
 
-export default function Authentication(props: Props) {
+export default function Authentication(props: IProps) {
   // signIn : true
   const { signIn } = props;
 

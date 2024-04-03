@@ -1,3 +1,3 @@
 import ResponseDto from "../response.dto";
 
-export default interface PostBoardResponseDto extends ResponseDto {}
+export default interface IPostBoardResponseDto extends ResponseDto {}

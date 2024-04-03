@@ -2,7 +2,7 @@ import React, { Dispatch, SetStateAction } from "react";
 import "./style.css";
 
 // 인터페이스 프로퍼티스
-interface Props {
+interface IProps {
   currentPage: number;
   currentSection: number;
   setCurrentPage: Dispatch<SetStateAction<number>>;
@@ -12,7 +12,7 @@ interface Props {
   totalSection: number;
 }
 
-export default function Pagination(props: Props) {
+export default function Pagination(props: IProps) {
   // 상태
   const { currentPage, currentSection, viewPageList, totalSection } = props;
   const { setCurrentPage, setCurrentSection } = props;

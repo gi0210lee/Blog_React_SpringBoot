@@ -1,5 +1,5 @@
 import ResponseDto from "../response.dto";
 
-interface IncreaseViewCountResponseDto extends ResponseDto {}
+interface IIncreaseViewCountResponseDto extends ResponseDto {}
 
-export default IncreaseViewCountResponseDto;
+export default IIncreaseViewCountResponseDto;

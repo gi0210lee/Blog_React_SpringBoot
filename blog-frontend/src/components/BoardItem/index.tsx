@@ -5,11 +5,11 @@ import defaultProfileImage from "assets/image/default-profile-image.png";
 import { IBoardListItem } from "types/interface";
 import { useNavigate } from "react-router-dom";
 import { BOARD_DETAIL_PATH, BOARD_PATH } from "constant";
-interface Props {
+interface IProps {
   boardItem: IBoardListItem;
 }
 
-export default function BoardItem({ boardItem }: Props) {
+export default function BoardItem({ boardItem }: IProps) {
   const {
     boardNumber,
     title,

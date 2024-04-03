@@ -1,7 +1,7 @@
-interface PatchBoardRequestDto {
+interface IPatchBoardRequestDto {
   title: string;
   content: string;
   boardImageList: string[];
 }
 
-export default PatchBoardRequestDto;
+export default IPatchBoardRequestDto;

@@ -1,8 +1,8 @@
 import { IFavoriteListItem } from "types/interface";
 import ResponseDto from "../response.dto";
 
-interface GetFavoriteListResponseDto extends ResponseDto {
+interface IGetFavoriteListResponseDto extends ResponseDto {
   favoriteList: IFavoriteListItem[];
 }
 
-export default GetFavoriteListResponseDto;
+export default IGetFavoriteListResponseDto;
