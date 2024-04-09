@@ -15,12 +15,15 @@ import {
 import { useCookies } from "react-cookie";
 import { useBoardStore, useLoginUserStore } from "stores";
 import { fileUploadRequest, patchBoardRequest, postBoardRequest } from "apis";
-import { PatchBoardRequestDto, PostBoardRequestDto } from "apis/request/board";
 import {
-  PatchBoardResponseDto,
-  PostBoardResponseDto,
+  IPatchBoardRequestDto,
+  IPostBoardRequestDto,
+} from "apis/request/board";
+import {
+  IPatchBoardResponseDto,
+  IPostBoardResponseDto,
 } from "apis/response/board";
-import { ResponseDto } from "apis/response";
+import { IResponseDto } from "apis/response";
 
 export default function Header() {
   // 로그인 유저 상태
@@ -168,7 +171,7 @@ export default function Header() {
 
     // 쿼리 응답
     const postBoardResponse = (
-      responseBody: PostBoardResponseDto | ResponseDto | null
+      responseBody: IPostBoardResponseDto | IResponseDto | null
     ) => {
       if (!responseBody) return;
 
@@ -186,12 +189,13 @@ export default function Header() {
     };
 
     const patchBoardResponse = (
-      responseBody: PatchBoardResponseDto | ResponseDto | null
+      responseBody: IPatchBoardResponseDto | IResponseDto | null
     ) => {
       if (!responseBody) return;
 
       const { code } = responseBody;
-      if (code === "DBE") alert("데PatchBoardRequestDto이터베이스 오류입니다.");
+      if (code === "DBE")
+        alert("I데PatchBoardRequestDto이터베이스 오류입니다.");
       if (code === "AF" || code === "NU" || code === "NB" || code === "NP")
         navigate(AUTH_PATH());
       if (code === "VF") alert("제목과 내용은 필수입니다.");
@@ -211,13 +215,13 @@ export default function Header() {
         const data = new FormData();
         data.append("file", file);
 
-        const url = await fileUploadRequest(data, accessToken);
+        const url = await fileUploadRequest(data);
         if (url) boardImageList.push(url);
       }
 
       const isWriterPage = pathname === BOARD_PATH() + "/" + BOARD_WRITE_PATH();
       if (isWriterPage) {
-        const requestBody: PostBoardRequestDto = {
+        const requestBody: IPostBoardRequestDto = {
           title,
           content,
           boardImageList,
@@ -232,7 +236,7 @@ export default function Header() {
       } else {
         if (!boardNumber) return;
 
-        const requestBody: PatchBoardRequestDto = {
+        const requestBody: IPatchBoardRequestDto = {
           title,
           content,
           boardImageList,

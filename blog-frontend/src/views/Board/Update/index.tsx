@@ -4,14 +4,9 @@ import { useBoardStore, useLoginUserStore } from "stores";
 import { useNavigate, useParams } from "react-router-dom";
 import { MAIN_PATH } from "constant";
 import { useCookies } from "react-cookie";
-import {
-  getBoardRequest,
-  getCommentListRequest,
-  getFavoriteListRequest,
-} from "apis";
-import { GetBoardResponseDto } from "apis/response/board";
-import { ResponseDto } from "apis/response";
-import { IBoard } from "types/interface";
+import { getBoardRequest } from "apis";
+import { IGetBoardResponseDto } from "apis/response/board";
+import { IResponseDto } from "apis/response";
 import { convertUrlsToFiles } from "utils";
 
 // 게시물 수정
@@ -94,7 +89,7 @@ export default function BoardUpdate() {
 
   // 쿼리 응답
   const getBoardResponse = (
-    responseBody: GetBoardResponseDto | ResponseDto | null
+    responseBody: IGetBoardResponseDto | IResponseDto | null
   ) => {
     if (!responseBody) return;
 
@@ -106,10 +101,10 @@ export default function BoardUpdate() {
       return;
     }
 
-    // const board: IBoard = { ...(responseBody as GetBoardResponseDto) };
-    // const board: IBoard = responseBody as GetBoardResponseDto;
+    // const board: IBoard = { ...(responseBody as IGetBoardResponseDto) };
+    // const board: IBoard = responseBody as IGetBoardResponseDto;
     const { title, content, boardImageList, writerEmail } =
-      responseBody as GetBoardResponseDto;
+      responseBody as IGetBoardResponseDto;
     // console.log(board.title);
     setTitle(title);
     setContent(content);

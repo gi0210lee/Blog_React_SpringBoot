@@ -2,15 +2,14 @@ import React, { useEffect, useState } from "react";
 import "./style.css";
 import { useNavigate, useParams } from "react-router-dom";
 import { IBoardListItem } from "types/interface";
-import { latestBoardListMock } from "mocks";
 import BoardItem from "components/BoardItem";
 import { SEARCH_PATH } from "constant";
 import { getRelationListRequest, getSearchBoardListRequest } from "apis";
-import { GetSearchBoardListResponseDto } from "apis/response/board";
-import { ResponseDto } from "apis/response";
+import { IGetSearchBoardListResponseDto } from "apis/response/board";
+import { IResponseDto } from "apis/response";
 import { usePagination } from "hooks";
 import Pagination from "components/Pagination";
-import { GetRelationListResponseDto } from "apis/response/search";
+import { IGetRelationListResponseDto } from "apis/response/search";
 
 export default function Search() {
   // 파라미터
@@ -39,7 +38,7 @@ export default function Search() {
 
   // 쿼리 응답
   const getSearchBoardListResponse = (
-    responseBody: GetSearchBoardListResponseDto | ResponseDto | null
+    responseBody: IGetSearchBoardListResponseDto | IResponseDto | null
   ) => {
     if (!responseBody) return;
     const { code } = responseBody;
@@ -48,13 +47,13 @@ export default function Search() {
 
     if (!searchWord) return;
 
-    const { searchList } = responseBody as GetSearchBoardListResponseDto;
+    const { searchList } = responseBody as IGetSearchBoardListResponseDto;
     setTotalList(searchList);
     setCount(searchList.length);
     setPreSearchWord(searchWord);
   };
   const getRelationListResponse = (
-    responseBody: GetRelationListResponseDto | ResponseDto | null
+    responseBody: IGetRelationListResponseDto | IResponseDto | null
   ) => {
     if (!responseBody) return;
 
@@ -64,7 +63,7 @@ export default function Search() {
 
     if (!searchWord) return;
 
-    const { relativeWordList } = responseBody as GetRelationListResponseDto;
+    const { relativeWordList } = responseBody as IGetRelationListResponseDto;
     setRelativeWordList(relativeWordList);
   };
 

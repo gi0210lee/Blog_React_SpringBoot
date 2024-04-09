@@ -1,4 +1,4 @@
-import IPatchNinknameRequestDto from "./patch-nickname.request.dto";
+import IPatchNicknameRequestDto from "./patch-nickname.request.dto";
 import IPatchProfileImageRequestDto from "./patch-profile-image.request.dto";
 
-export type { IPatchNinknameRequestDto, IPatchProfileImageRequestDto };
+export type { IPatchNicknameRequestDto, IPatchProfileImageRequestDto };

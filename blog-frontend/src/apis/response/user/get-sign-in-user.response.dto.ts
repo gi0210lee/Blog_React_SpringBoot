@@ -1,4 +1,6 @@
 import { IUser } from "types/interface";
-import ResponseDto from "../response.dto";
+import IResponseDto from "../response.dto";
 
-export default interface IGetSignInUserResponseDto extends ResponseDto, IUser {}
+export default interface IGetSignInUserResponseDto
+  extends IResponseDto,
+    IUser {}

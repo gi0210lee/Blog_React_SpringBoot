@@ -1,4 +1,4 @@
-import GetPopularListResponseDto from "./get-popular-list.response.dto";
-import GetRelationListResponseDto from "./get-relation-list.response.dto";
+import IGetPopularListResponseDto from "./get-popular-list.response.dto";
+import IGetRelationListResponseDto from "./get-relation-list.response.dto";
 
-export type { GetPopularListResponseDto, GetRelationListResponseDto };
+export type { IGetPopularListResponseDto, IGetRelationListResponseDto };

@@ -10,12 +10,14 @@ import {
   getPopularListRequest,
   getTop3BoardListRequest,
 } from "apis";
-import { GetTop3BoardListResponseDto } from "apis/response/board";
-import { ResponseDto } from "apis/response";
+import {
+  IGetLatestBoardListResponseDto,
+  IGetTop3BoardListResponseDto,
+} from "apis/response/board";
+import { IResponseDto } from "apis/response";
 import { usePagination } from "hooks";
-import GetLatestBoardListResponseDto from "apis/response/board/get-latest-board-list.response.dto";
 import Pagination from "components/Pagination";
-import { GetPopularListResponseDto } from "apis/response/search";
+import { IGetPopularListResponseDto } from "apis/response/search";
 
 export default function Main() {
   // 상태
@@ -28,14 +30,14 @@ export default function Main() {
 
     // 쿼리 응답
     const getTop3BoardListResponse = (
-      responseBody: GetTop3BoardListResponseDto | ResponseDto | null
+      responseBody: IGetTop3BoardListResponseDto | IResponseDto | null
     ) => {
       if (!responseBody) return;
       const { code } = responseBody;
       if (code == "DBE") alert("데이터베이스 오류입니다.");
       if (code != "SU") return;
 
-      const { top3List } = responseBody as GetTop3BoardListResponseDto;
+      const { top3List } = responseBody as IGetTop3BoardListResponseDto;
       setTop3BoardList(top3List);
     };
 
@@ -85,26 +87,26 @@ export default function Main() {
 
     // 쿼리 응답
     const getLatestBoardListResponse = (
-      responseBody: GetLatestBoardListResponseDto | ResponseDto | null
+      responseBody: IGetLatestBoardListResponseDto | IResponseDto | null
     ) => {
       if (!responseBody) return;
       const { code } = responseBody;
       if (code === "DBE") alert("데이터베이스 오류입니다.");
       if (code !== "SU") return;
 
-      const { latestList } = responseBody as GetLatestBoardListResponseDto;
+      const { latestList } = responseBody as IGetLatestBoardListResponseDto;
       setTotalList(latestList);
     };
 
     const getPopularListResponse = (
-      responseBody: GetPopularListResponseDto | ResponseDto | null
+      responseBody: IGetPopularListResponseDto | IResponseDto | null
     ) => {
       if (!responseBody) return;
       const { code } = responseBody;
       if (code === "DBE") alert("데이터베이스 오류입니다.");
       if (code !== "SU") return;
 
-      const { popularWordList } = responseBody as GetPopularListResponseDto;
+      const { popularWordList } = responseBody as IGetPopularListResponseDto;
       setPopularWordList(popularWordList);
     };
 

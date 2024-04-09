@@ -1,4 +1,4 @@
-import SignUpResponseDto from "./sign-up.response.dto";
-import SignInResponseDto from "./sign-in.response.dto";
+import ISignUpResponseDto from "./sign-up.response.dto";
+import ISignInResponseDto from "./sign-in.response.dto";
 
-export type { SignUpResponseDto, SignInResponseDto };
+export type { ISignUpResponseDto, ISignInResponseDto };

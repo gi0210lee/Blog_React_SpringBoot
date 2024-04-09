@@ -144,10 +144,10 @@
   gap: 16px;
 }
 
-.user-botton-side-box {
+.user-bottom-side-box {
   grid-column: 2/3;
 }
-.user-botton-side-card {
+.user-bottom-side-card {
   width: 100%;
   height: 76px;
 
@@ -158,13 +158,13 @@
   background-color: rgba(255, 255, 255, 1);
 }
 
-.user-botton-side-card:hover {
+.user-bottom-side-card:hover {
   background-color: rgba(255, 255, 255, 0.5);
 
   cursor: pointer;
 }
 
-.user-botton-side-container {
+.user-bottom-side-container {
   display: flex;
   align-items: center;
 
@@ -176,15 +176,4 @@
   line-height: 140%;
 
   color: rgba(0, 0, 0, 1);
-}
-
-.user-bottom-pagination-box {
-  margin-top: 60px;
-
-  display: flex;
-  justify-content: center;
-
-  height: 100px;
-  width: 100px;
-  background-color: red;
 }

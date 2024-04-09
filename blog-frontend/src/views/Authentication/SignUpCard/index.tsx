@@ -1,14 +1,13 @@
 import InputBox from "components/InputBox";
 import "./style.css";
 import { ChangeEvent, KeyboardEvent, useEffect, useRef, useState } from "react";
-import { error } from "console";
 import { useNavigate } from "react-router-dom";
 import { AUTH_PATH, AUTH_SIGN_IN_PATH, MAIN_PATH } from "constant";
 import { Address, useDaumPostcodePopup } from "react-daum-postcode";
-import { SignInRequestDto, SignUpRequestDto } from "apis/request/auth";
+import { ISignUpRequestDto } from "apis/request/auth";
 import { signUpRequest } from "apis";
-import { ResponseDto } from "apis/response";
-import { SignUpResponseDto } from "apis/response/auth";
+import { IResponseDto } from "apis/response";
+import { ISignUpResponseDto } from "apis/response/auth";
 
 const SignUpCard = () => {
   // 네비게이트
@@ -34,14 +33,14 @@ const SignUpCard = () => {
 
     setAddress(fullAddress);
     setAddressError(false);
-    setAddressErrorMessage("");
+
     if (!addressDetailRef.current) return;
     addressDetailRef.current.focus();
   };
 
   // sign up response 처리 함수
   const signUpResonse = (
-    responseBody: SignUpResponseDto | ResponseDto | null
+    responseBody: ISignUpResponseDto | IResponseDto | null
   ) => {
     if (!responseBody) {
       alert("네트워크 이상입니다.");
@@ -338,7 +337,7 @@ const SignUpCard = () => {
 
     if (!hasNickname || !isTelNumberPattern || !agreedPersonal) return;
 
-    const requestBody: SignUpRequestDto = {
+    const requestBody: ISignUpRequestDto = {
       email,
       password,
       nickname,

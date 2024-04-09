@@ -1,7 +1,7 @@
 import { signInRequest } from "apis";
-import { SignInRequestDto } from "apis/request/auth";
-import { ResponseDto } from "apis/response";
-import { SignInResponseDto } from "apis/response/auth";
+import { ISignInRequestDto } from "apis/request/auth";
+import { IResponseDto } from "apis/response";
+import { ISignInResponseDto } from "apis/response/auth";
 import InputBox from "components/InputBox";
 import { AUTH_PATH, AUTH_SIGN_UP_PATH, MAIN_PATH } from "constant";
 import { ChangeEvent, KeyboardEvent, useRef, useState } from "react";
@@ -44,7 +44,7 @@ const SignInCard = () => {
 
   // signInRequest 결과
   const signInResponse = (
-    responseBody: SignInResponseDto | ResponseDto | null
+    responseBody: ISignInResponseDto | IResponseDto | null
   ) => {
     if (responseBody === null) {
       alert("네트워크 이상입니다.");
@@ -56,7 +56,7 @@ const SignInCard = () => {
     if (code === "LF" || code === "VF") setError(true);
     if (code !== "SU") return;
 
-    const { token, expirationTime } = responseBody as SignInResponseDto;
+    const { token, expirationTime } = responseBody as ISignInResponseDto;
     const now = new Date().getTime();
     const expires = new Date(now + expirationTime * 1000);
 
@@ -66,7 +66,7 @@ const SignInCard = () => {
 
   // 로그인 버튼 이벤트
   const onSignInButtonClickHandler = () => {
-    const requestBody: SignInRequestDto = { email, password };
+    const requestBody: ISignInRequestDto = { email, password };
     signInRequest(requestBody).then(signInResponse);
   };
 

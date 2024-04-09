@@ -13,15 +13,15 @@ import defaultProfileImage from "assets/image/default-profile-image.png";
 import { useLoginUserStore } from "stores";
 import { useNavigate, useParams } from "react-router-dom";
 import { BOARD_PATH, BOARD_UPDATE_PATH, MAIN_PATH, USER_PATH } from "constant";
-import { ResponseDto } from "apis/response";
+import { IResponseDto } from "apis/response";
 import {
-  GetBoardResponseDto,
-  GetFavoriteListResponseDto,
-  IncreaseViewCountResponseDto,
-  GetCommentListResponseDto,
-  PutfavoriteResponseDto,
-  PostCommentResponseDto,
-  DeleteBoardResponseDto,
+  IGetBoardResponseDto,
+  IGetFavoriteListResponseDto,
+  IIncreaseViewCountResponseDto,
+  IGetCommentListResponseDto,
+  IPutfavoriteResponseDto,
+  IPostCommentResponseDto,
+  IDeleteBoardResponseDto,
 } from "apis/response/board";
 import {
   deleteBoardRequest,
@@ -34,7 +34,7 @@ import {
 } from "apis";
 import dayjs from "dayjs";
 import { useCookies } from "react-cookie";
-import { PostCommentRequestDto } from "apis/request/board";
+import { IPostCommentRequestDto } from "apis/request/board";
 import { usePagination } from "hooks";
 
 export default function BoardDetail() {
@@ -87,7 +87,7 @@ export default function BoardDetail() {
 
     // 쿼리 응답
     const deleteBoardResponse = (
-      responseBody: DeleteBoardResponseDto | ResponseDto | null
+      responseBody: IDeleteBoardResponseDto | IResponseDto | null
     ) => {
       if (!responseBody) return;
 
@@ -103,7 +103,7 @@ export default function BoardDetail() {
       navigate(MAIN_PATH());
     };
     const getBoardResponse = (
-      responseBody: GetBoardResponseDto | ResponseDto | null
+      responseBody: IGetBoardResponseDto | IResponseDto | null
     ) => {
       if (!responseBody) return;
 
@@ -115,7 +115,7 @@ export default function BoardDetail() {
         return;
       }
 
-      const board: IBoard = { ...(responseBody as GetBoardResponseDto) };
+      const board: IBoard = { ...(responseBody as IGetBoardResponseDto) };
       setBoard(board);
 
       if (!loginUser) {
@@ -260,7 +260,7 @@ export default function BoardDetail() {
       if (!comment || !boardNumber || !loginUser || !cookies.accessToken)
         return;
 
-      const requestBody: PostCommentRequestDto = { content: comment };
+      const requestBody: IPostCommentRequestDto = { content: comment };
       postCommentRequest(boardNumber, requestBody, cookies.accessToken).then(
         postCommentResponse
       );
@@ -268,7 +268,7 @@ export default function BoardDetail() {
 
     // 쿼리 응답
     const postCommentResponse = (
-      responseBody: PostCommentResponseDto | ResponseDto | null
+      responseBody: IPostCommentResponseDto | IResponseDto | null
     ) => {
       if (!responseBody) return;
       const { code } = responseBody;
@@ -288,7 +288,7 @@ export default function BoardDetail() {
     };
 
     const putFavoriteResponse = (
-      responseBody: PutfavoriteResponseDto | ResponseDto | null
+      responseBody: IPutfavoriteResponseDto | IResponseDto | null
     ) => {
       if (!responseBody) return;
       const { code } = responseBody;
@@ -304,7 +304,7 @@ export default function BoardDetail() {
     };
 
     const getFavoriteListResponse = (
-      responseBody: GetFavoriteListResponseDto | ResponseDto | null
+      responseBody: IGetFavoriteListResponseDto | IResponseDto | null
     ) => {
       if (!responseBody) return;
       const { code } = responseBody;
@@ -312,7 +312,7 @@ export default function BoardDetail() {
       if (code === "DBE") alert("데이터베이스 오류입니다.");
       if (code !== "SU") return;
 
-      const { favoriteList } = responseBody as GetFavoriteListResponseDto;
+      const { favoriteList } = responseBody as IGetFavoriteListResponseDto;
       setFavoriteList(favoriteList);
 
       if (!loginUser) {
@@ -329,7 +329,7 @@ export default function BoardDetail() {
     };
 
     const getCommentListResponse = (
-      responseBody: GetCommentListResponseDto | ResponseDto | null
+      responseBody: IGetCommentListResponseDto | IResponseDto | null
     ) => {
       if (!responseBody) return;
       const { code } = responseBody;
@@ -337,7 +337,7 @@ export default function BoardDetail() {
       if (code === "DBE") alert("데이터베이스 오류입니다.");
       if (code !== "SU") return;
 
-      const { commentList } = responseBody as GetCommentListResponseDto;
+      const { commentList } = responseBody as IGetCommentListResponseDto;
 
       setTotalList(commentList);
       setTotalCommentCount(commentList.length);
@@ -451,7 +451,7 @@ export default function BoardDetail() {
 
   // 쿼리 응답
   const increaseViewCountResponse = (
-    responseBody: IncreaseViewCountResponseDto | ResponseDto | null
+    responseBody: IIncreaseViewCountResponseDto | IResponseDto | null
   ) => {
     if (!responseBody) return;
     const { code } = responseBody;

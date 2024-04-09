@@ -1,4 +1,4 @@
-import SignUpRequestDto from "./sign-up.request.dto";
-import SignInRequestDto from "./sign-in.request.dto";
+import ISignUpRequestDto from "./sign-up.request.dto";
+import ISignInRequestDto from "./sign-in.request.dto";
 
-export type { SignUpRequestDto, SignInRequestDto };
+export type { ISignUpRequestDto, ISignInRequestDto };

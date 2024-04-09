@@ -19,17 +19,17 @@ import { BOARD_WRITE_PATH } from "constant";
 import { BOARD_UPDATE_PATH } from "constant";
 import { useCookies } from "react-cookie";
 import { useLoginUserStore } from "stores";
-import { GetSignInUserRequest } from "apis";
-import { GetSignInUserResponseDto } from "apis/response/user";
-import { ResponseDto } from "apis/response";
+import { getSignInUserRequest } from "apis";
+import { IGetSignInUserResponseDto } from "apis/response/user";
+import { IResponseDto } from "apis/response";
 import { IUser } from "types/interface";
 
 function App() {
   const { setLoginUser, resetLoginUser } = useLoginUserStore();
   const [cookie, setCookie] = useCookies();
 
-  const GetSignInUserResponse = (
-    responseBody: GetSignInUserResponseDto | ResponseDto | null
+  const getSignInUserResponse = (
+    responseBody: IGetSignInUserResponseDto | IResponseDto | null
   ) => {
     if (!responseBody) return;
 
@@ -39,7 +39,7 @@ function App() {
       return;
     }
 
-    const loginUser: IUser = { ...(responseBody as GetSignInUserResponseDto) };
+    const loginUser: IUser = { ...(responseBody as IGetSignInUserResponseDto) };
     setLoginUser(loginUser);
   };
 
@@ -50,8 +50,8 @@ function App() {
       return;
     }
 
-    GetSignInUserRequest(cookie.accessToken).then((response) =>
-      GetSignInUserResponse(response)
+    getSignInUserRequest(cookie.accessToken).then((response) =>
+      getSignInUserResponse(response)
     );
   }, [cookie.accessToken]);
 
